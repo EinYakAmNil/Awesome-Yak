@@ -9,8 +9,8 @@ require("awful.hotkeys_popup.keys")
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
 	awful.button({}, 3, function() defaults.mymainmenu:toggle() end),
-	awful.button({}, 4, awful.tag.viewnext),
-	awful.button({}, 5, awful.tag.viewprev)
+	awful.button({}, 4, awful.tag.viewprev),
+	awful.button({}, 5, awful.tag.viewnext)
 ))
 -- }}}
 
@@ -51,14 +51,14 @@ local globalkeys = gears.table.join(
 		{ description = "focus the previous screen", group = "screen" }),
 	awful.key({ defaults.modkey, }, "u", awful.client.urgent.jumpto,
 		{ description = "jump to urgent client", group = "client" }),
-	awful.key({ defaults.modkey, }, "Tab",
-		function()
-			awful.client.focus.history.previous()
-			if client.focus then
-				client.focus:raise()
-			end
-		end,
-		{ description = "go back", group = "client" }),
+	-- awful.key({ defaults.modkey, }, "Tab",
+	-- 	function()
+	-- 		awful.client.focus.history.previous()
+	-- 		if client.focus then
+	-- 			client.focus:raise()
+	-- 		end
+	-- 	end,
+	-- 	{ description = "go back", group = "client" }),
 
 	-- Standard program
 	awful.key({ defaults.modkey, }, "Return", function() awful.spawn(defaults.terminal) end,
@@ -166,6 +166,20 @@ for i = 1, 9 do
 	)
 end
 
--- Set keys
+-- awful.key({ defaults.modkey }, "Tab",
+-- 	function()
+-- 		local screen = awful.screen.focused()
+-- 		local layout_now = awful.screen.focused().selected_tags
+-- 		clien layout_now
+-- 	end
+-- )
+--
+
+local naughty = require("naughty")
+
+function f1()
+	naughty.notify({text = "hello"})
+end
+
 root.keys(globalkeys)
 -- }}}

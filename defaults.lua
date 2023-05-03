@@ -15,7 +15,7 @@ M = {}
 -- However, you can use another modifier like Mod1, but it may interact with others.
 M.modkey = "Mod4"
 
-M.terminal = "st"
+M.terminal = "alacritty"
 
 local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = M.terminal .. " -e " .. editor
