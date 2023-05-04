@@ -51,14 +51,21 @@ local globalkeys = gears.table.join(
 		{ description = "focus the previous screen", group = "screen" }),
 	awful.key({ defaults.modkey, }, "u", awful.client.urgent.jumpto,
 		{ description = "jump to urgent client", group = "client" }),
-	-- awful.key({ defaults.modkey, }, "Tab",
-	-- 	function()
-	-- 		awful.client.focus.history.previous()
-	-- 		if client.focus then
-	-- 			client.focus:raise()
-	-- 		end
-	-- 	end,
-	-- 	{ description = "go back", group = "client" }),
+	awful.key({ defaults.modkey, }, "Tab",
+		function()
+			local screen = awful.screen.focused()
+			local tags = screen.selected_tags
+
+			if tags_prev then
+				awful.tag.viewmore(tags_prev, screen)
+				tags_prev = nil
+
+			else
+				tags_prev = tags
+				awful.tag.history.restore(screen, 1)
+			end
+		end,
+		{ description = "Switch to previously focused Tabs", group = "client" }),
 
 	-- Standard program
 	awful.key({ defaults.modkey, }, "Return", function() awful.spawn(defaults.terminal) end,
@@ -164,21 +171,6 @@ for i = 1, 9 do
 			end,
 			{ description = "toggle focused client on tag #" .. i, group = "tag" })
 	)
-end
-
--- awful.key({ defaults.modkey }, "Tab",
--- 	function()
--- 		local screen = awful.screen.focused()
--- 		local layout_now = awful.screen.focused().selected_tags
--- 		clien layout_now
--- 	end
--- )
---
-
-local naughty = require("naughty")
-
-function f1()
-	naughty.notify({text = "hello"})
 end
 
 root.keys(globalkeys)
