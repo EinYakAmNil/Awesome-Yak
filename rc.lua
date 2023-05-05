@@ -343,8 +343,16 @@ awful.rules.rules = {
 		properties = { floating = true },
 	},
 	{
-		rule_any = { class = { "firefox", "Brave-browser" }},
-		properties = { tag = defaults.tagsnames["browser"] }
+		rule_any = { class = { "firefox", "Brave-browser" } },
+		properties = { tag = defaults.tagsnames["browser"] },
+	},
+	{
+		rule_any = { class = { "krita", "Gimp-2.10", "Blender" } },
+		properties = { tag = defaults.tagsnames["art"], maximized = false },
+	},
+	{
+		rule = { class = "Blender", name = "Blender Preferences" },
+		properties = { floating = true },
 	},
 	{
 		rule = { class = "leagueclientux.exe" },
