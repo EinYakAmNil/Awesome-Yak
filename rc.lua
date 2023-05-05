@@ -24,7 +24,7 @@ if awesome.startup_errors then
 	naughty.notify({
 		preset = naughty.config.presets.critical,
 		title = "Oops, there were errors during startup!",
-		text = awesome.startup_errors
+		text = awesome.startup_errors,
 	})
 end
 
@@ -33,13 +33,15 @@ do
 	local in_error = false
 	awesome.connect_signal("debug::error", function(err)
 		-- Make sure we don't go into an endless error loop
-		if in_error then return end
+		if in_error then
+			return
+		end
 		in_error = true
 
 		naughty.notify({
 			preset = naughty.config.presets.critical,
 			title = "Oops, an error happened!",
-			text = tostring(err)
+			text = tostring(err),
 		})
 		in_error = false
 	end)
@@ -63,7 +65,9 @@ mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
-	awful.button({}, 1, function(t) t:view_only() end),
+	awful.button({}, 1, function(t)
+		t:view_only()
+	end),
 	awful.button({ defaults.modkey }, 1, function(t)
 		if client.focus then
 			client.focus:move_to_tag(t)
@@ -75,8 +79,12 @@ local taglist_buttons = gears.table.join(
 			client.focus:toggle_tag(t)
 		end
 	end),
-	awful.button({}, 4, function(t) awful.tag.viewprev(t.screen) end),
-	awful.button({}, 5, function(t) awful.tag.viewnext(t.screen) end)
+	awful.button({}, 4, function(t)
+		awful.tag.viewprev(t.screen)
+	end),
+	awful.button({}, 5, function(t)
+		awful.tag.viewnext(t.screen)
+	end)
 )
 
 local tasklist_buttons = gears.table.join(
@@ -84,11 +92,7 @@ local tasklist_buttons = gears.table.join(
 		if c == client.focus then
 			c.minimized = true
 		else
-			c:emit_signal(
-				"request::activate",
-				"tasklist",
-				{ raise = true }
-			)
+			c:emit_signal("request::activate", "tasklist", { raise = true })
 		end
 	end),
 	awful.button({}, 3, function()
@@ -99,7 +103,8 @@ local tasklist_buttons = gears.table.join(
 	end),
 	awful.button({}, 5, function()
 		awful.client.focus.byidx(1)
-	end))
+	end)
+)
 
 local function set_wallpaper(s)
 	-- Wallpaper
@@ -117,11 +122,11 @@ end
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-	separator = wibox.widget.separator {
+	separator = wibox.widget.separator({
 		thickness = 5,
-		forced_width = 20
-	}
-	scroller = wibox.widget {
+		forced_width = 20,
+	})
+	scroller = wibox.widget({
 		layout = wibox.container.scroll.horizontal,
 		max_size = 100,
 		step_function = wibox.container.scroll.step_functions.linear_increase,
@@ -130,14 +135,24 @@ awful.screen.connect_for_each_screen(function(s)
 		fps = 60,
 		{
 			widget = wibox.widget.textbox,
-			text = "This is a " .. string.rep("very, ", 10) .. " very long text -- "
+			text = "This is a " .. string.rep("very, ", 10) .. " very long text -- ",
 		},
-	}
+	})
 	-- Wallpaper
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "󰆍 ", "󰈹 ", "🎮", "󰓓 ", "󰗃 ", "󰝰 ", "7", "8", "9" }, s, awful.layout.layouts[1])
+	awful.tag({
+		defaults.tagsnames["console"],
+		defaults.tagsnames["browser"],
+		defaults.tagsnames["games"],
+		defaults.tagsnames["gameclients"],
+		defaults.tagsnames["videos"],
+		defaults.tagsnames["art"],
+		defaults.tagsnames["audio"],
+		defaults.tagsnames["files"],
+		defaults.tagsnames["trash"],
+	}, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -145,23 +160,32 @@ awful.screen.connect_for_each_screen(function(s)
 	-- We need one layoutbox per screen.
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(gears.table.join(
-		awful.button({}, 1, function() awful.layout.inc(1) end),
-		awful.button({}, 3, function() awful.layout.inc(-1) end),
-		awful.button({}, 4, function() awful.layout.inc(1) end),
-		awful.button({}, 5, function() awful.layout.inc(-1) end)))
+		awful.button({}, 1, function()
+			awful.layout.inc(1)
+		end),
+		awful.button({}, 3, function()
+			awful.layout.inc(-1)
+		end),
+		awful.button({}, 4, function()
+			awful.layout.inc(1)
+		end),
+		awful.button({}, 5, function()
+			awful.layout.inc(-1)
+		end)
+	))
 	-- Create a taglist widget
-	s.mytaglist = awful.widget.taglist {
-		screen  = s,
-		filter  = awful.widget.taglist.filter.all,
-		buttons = taglist_buttons
-	}
+	s.mytaglist = awful.widget.taglist({
+		screen = s,
+		filter = awful.widget.taglist.filter.all,
+		buttons = taglist_buttons,
+	})
 
 	-- Create a tasklist widget
-	s.mytasklist = awful.widget.tasklist {
-		screen  = s,
-		filter  = awful.widget.tasklist.filter.currenttags,
-		buttons = tasklist_buttons
-	}
+	s.mytasklist = awful.widget.tasklist({
+		screen = s,
+		filter = awful.widget.tasklist.filter.currenttags,
+		buttons = tasklist_buttons,
+	})
 
 	-- hack offset status bar
 	s.spacer = awful.wibar({
@@ -169,7 +193,7 @@ awful.screen.connect_for_each_screen(function(s)
 		height = 5,
 		width = 1,
 		opacity = 0,
-		screen = s
+		screen = s,
 	})
 	s.spacer:setup()
 	-- Create the wibox
@@ -177,11 +201,11 @@ awful.screen.connect_for_each_screen(function(s)
 		position = "top",
 		height = 30,
 		width = 1900,
-		screen = s
+		screen = s,
 	})
 
 	-- Add widgets to the wibox
-	s.mywibox:setup {
+	s.mywibox:setup({
 		layout = wibox.layout.align.horizontal,
 		{
 			-- Left widgets
@@ -201,52 +225,50 @@ awful.screen.connect_for_each_screen(function(s)
 			mytextclock,
 			s.mylayoutbox,
 		},
-	}
+	})
 end)
 -- }}}
 
 local clientkeys = gears.table.join(
-	awful.key({ defaults.modkey, }, "f",
-		function(c)
-			c.fullscreen = not c.fullscreen
-			c:raise()
-		end,
-		{ description = "toggle fullscreen", group = "client" }),
-	awful.key({ defaults.modkey, "Shift" }, "c", function(c) c:kill() end,
-		{ description = "close", group = "client" }),
-	awful.key({ defaults.modkey, "Control" }, "space", awful.client.floating.toggle,
-		{ description = "toggle floating", group = "client" }),
-	awful.key({ defaults.modkey, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
-		{ description = "move to master", group = "client" }),
-	awful.key({ defaults.modkey, }, "o", function(c) c:move_to_screen() end,
-		{ description = "move to screen", group = "client" }),
-	awful.key({ defaults.modkey, }, "t", function(c) c.ontop = not c.ontop end,
-		{ description = "toggle keep on top", group = "client" }),
-	awful.key({ defaults.modkey, }, "n",
-		function(c)
-			-- The client currently has the input focus, so it cannot be
-			-- minimized, since minimized clients can't have the focus.
-			c.minimized = true
-		end,
-		{ description = "minimize", group = "client" }),
-	awful.key({ defaults.modkey, }, "m",
-		function(c)
-			c.maximized = not c.maximized
-			c:raise()
-		end,
-		{ description = "(un)maximize", group = "client" }),
-	awful.key({ defaults.modkey, "Control" }, "m",
-		function(c)
-			c.maximized_vertical = not c.maximized_vertical
-			c:raise()
-		end,
-		{ description = "(un)maximize vertically", group = "client" }),
-	awful.key({ defaults.modkey, "Shift" }, "m",
-		function(c)
-			c.maximized_horizontal = not c.maximized_horizontal
-			c:raise()
-		end,
-		{ description = "(un)maximize horizontally", group = "client" })
+	awful.key({ defaults.modkey }, "f", function(c)
+		c.fullscreen = not c.fullscreen
+		c:raise()
+	end, { description = "toggle fullscreen", group = "client" }),
+	awful.key({ defaults.modkey, "Shift" }, "c", function(c)
+		c:kill()
+	end, { description = "close", group = "client" }),
+	awful.key(
+		{ defaults.modkey, "Control" },
+		"space",
+		awful.client.floating.toggle,
+		{ description = "toggle floating", group = "client" }
+	),
+	awful.key({ defaults.modkey, "Control" }, "Return", function(c)
+		c:swap(awful.client.getmaster())
+	end, { description = "move to master", group = "client" }),
+	awful.key({ defaults.modkey }, "o", function(c)
+		c:move_to_screen()
+	end, { description = "move to screen", group = "client" }),
+	awful.key({ defaults.modkey }, "t", function(c)
+		c.ontop = not c.ontop
+	end, { description = "toggle keep on top", group = "client" }),
+	awful.key({ defaults.modkey }, "n", function(c)
+		-- The client currently has the input focus, so it cannot be
+		-- minimized, since minimized clients can't have the focus.
+		c.minimized = true
+	end, { description = "minimize", group = "client" }),
+	awful.key({ defaults.modkey }, "m", function(c)
+		c.maximized = not c.maximized
+		c:raise()
+	end, { description = "(un)maximize", group = "client" }),
+	awful.key({ defaults.modkey, "Control" }, "m", function(c)
+		c.maximized_vertical = not c.maximized_vertical
+		c:raise()
+	end, { description = "(un)maximize vertically", group = "client" }),
+	awful.key({ defaults.modkey, "Shift" }, "m", function(c)
+		c.maximized_horizontal = not c.maximized_horizontal
+		c:raise()
+	end, { description = "(un)maximize horizontally", group = "client" })
 )
 
 local clientbuttons = gears.table.join(
@@ -277,8 +299,14 @@ awful.rules.rules = {
 			keys = clientkeys,
 			buttons = clientbuttons,
 			screen = awful.screen.preferred,
-			placement = awful.placement.no_overlap + awful.placement.no_offscreen
-		}
+			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+		},
+	},
+
+	-- No titlebars
+	{
+		rule_any = { type = { "normal", "dialog" } },
+		properties = { titlebars_enabled = false },
 	},
 
 	-- Floating clients.
@@ -295,11 +323,11 @@ awful.rules.rules = {
 				"Gpick",
 				"Kruler",
 				"MessageWin", -- kalarm.
-				"Sxiv",
 				"Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
 				"Wpa_gui",
 				"veromix",
-				"xtightvncviewer" },
+				"xtightvncviewer",
+			},
 			-- Note that the name property shown in xprop might be set slightly after creation of the client
 			-- and the name shown there might not match defined rules here.
 			name = {
@@ -309,22 +337,28 @@ awful.rules.rules = {
 				"AlarmWindow", -- Thunderbird's calendar.
 				"ConfigManager", -- Thunderbird's about:config.
 				"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
-			}
+			},
 		},
-		properties = { floating = true }
+		properties = { floating = true },
 	},
-
-	-- Add titlebars to normal clients and dialogs
 	{
-		rule_any = { type = { "normal", "dialog" }
+		rule_any = { class = { "firefox", "Brave-browser" }},
+		properties = { tag = defaults.tagsnames["browser"] }
+	},
+	{
+		rule = { class = "leagueclientux.exe" },
+		properties = {
+			tag = defaults.tagsnames["gameclients"],
+			floating = true,
 		},
-		properties = { titlebars_enabled = false }
 	},
-
-	-- Set Firefox to always map on the tag named "2" on screen 1.
 	{
-		rule = { class = "Firefox" },
-		properties = { screen = 1, tag = "1" }
+		rule = { class = "league of legends.exe" },
+		properties = {
+			screen = 1,
+			tag = defaults.tagsnames["games"],
+			fullscreen = true,
+		},
 	},
 }
 -- }}}
@@ -336,9 +370,7 @@ client.connect_signal("manage", function(c)
 	-- i.e. put it at the end of others instead of setting it master.
 	-- if not awesome.startup then awful.client.setslave(c) end
 
-	if awesome.startup
-		and not c.size_hints.user_position
-		and not c.size_hints.program_position then
+	if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
 		-- Prevent clients from being unreachable after screen count changes.
 		awful.placement.no_offscreen(c)
 	end

@@ -51,4 +51,16 @@ M.mylauncher = awful.widget.launcher({
 	menu = M.mymainmenu,
 })
 
+M.tagsnames = {
+	console = "󰆍 ",
+	browser = "󰈹 ",
+	games = "🎮",
+	gameclients = "󰓓 ",
+	videos = "󰗃 ",
+	art = "🖌",
+	audio = "𝅘𝅥𝅮♪",
+	files = "󰝰 ",
+	trash = "💩",
+}
+
 return M
