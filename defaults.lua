@@ -15,8 +15,8 @@ M = {}
 -- However, you can use another modifier like Mod1, but it may interact with others.
 M.modkey = "Mod4"
 
-M.terminal = "alacritty"
-M.dmenu_desktop = 'j4-dmenu-desktop --dmenu="dmenu -i -fn Ubuntu\\ Mono:size=22"'
+M.terminal = os.getenv("TERM") or "alacritty"
+M.dmenu_desktop = 'j4-dmenu-desktop --term alacritty --dmenu="dmenu -i -fn Ubuntu\\ Mono:size=22"'
 
 local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = M.terminal .. " -e " .. editor

@@ -13,7 +13,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -138,7 +137,7 @@ awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "󰆍 ", "󰈹 ", "🎮", "󰓓 ", "󰗃 ", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+	awful.tag({ "󰆍 ", "󰈹 ", "🎮", "󰓓 ", "󰗃 ", "󰝰 ", "7", "8", "9" }, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -164,10 +163,20 @@ awful.screen.connect_for_each_screen(function(s)
 		buttons = tasklist_buttons
 	}
 
+	-- hack offset status bar
+	s.spacer = awful.wibar({
+		position = "top",
+		height = 5,
+		width = 1,
+		opacity = 0,
+		screen = s
+	})
+	s.spacer:setup()
 	-- Create the wibox
 	s.mywibox = awful.wibar({
 		position = "top",
 		height = 30,
+		width = 1900,
 		screen = s
 	})
 
