@@ -78,7 +78,7 @@ local globalkeys = gears.table.join(
 		awesome.restart,
 		{ description = "reload awesome", group = "awesome" }
 	),
-	awful.key({ defaults.modkey, "Shift" }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
+	awful.key({ defaults.modkey, "Shift" }, "x", awesome.quit, { description = "quit awesome", group = "awesome" }),
 	awful.key({ defaults.modkey }, "l", function()
 		awful.tag.incmwfact(0.05)
 	end, { description = "increase master width factor", group = "layout" }),
@@ -114,10 +114,6 @@ local globalkeys = gears.table.join(
 
 	-- Prompt
 	awful.key({ defaults.modkey }, "r", function()
-		awful.screen.focused().mypromptbox:run()
-	end, { description = "run prompt", group = "launcher" }),
-
-	awful.key({ defaults.modkey }, "x", function()
 		awful.prompt.run({
 			prompt = "Run Lua code: ",
 			textbox = awful.screen.focused().mypromptbox.widget,
@@ -126,9 +122,9 @@ local globalkeys = gears.table.join(
 		})
 	end, { description = "lua execute prompt", group = "awesome" }),
 	-- Menubar
-	awful.key({ defaults.modkey }, "p", function()
-		menubar.show()
-	end, { description = "show the menubar", group = "launcher" })
+	-- awful.key({ defaults.modkey }, "p", function()
+	-- 	menubar.show()
+	-- end, { description = "show the menubar", group = "launcher" })
 )
 
 -- Bind all key numbers to tags.
