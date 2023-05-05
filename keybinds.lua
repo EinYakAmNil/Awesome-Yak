@@ -21,7 +21,7 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ defaults.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ defaults.modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
-	awful.key({ defaults.modkey }, "Escape", awful.tag.history.restore, { description = "go back", group = "tag" }),
+	awful.key({ defaults.modkey }, "Tab", awful.tag.history.restore, { description = "Switch to previously focused Tabs", group = "tag" }),
 
 	awful.key({ defaults.modkey }, "j", function()
 		awful.client.focus.byidx(1)
@@ -52,18 +52,6 @@ local globalkeys = gears.table.join(
 		awful.client.urgent.jumpto,
 		{ description = "jump to urgent client", group = "client" }
 	),
-	awful.key({ defaults.modkey }, "Tab", function()
-		local screen = awful.screen.focused()
-		local tags = screen.selected_tags
-
-		if tags_prev then
-			awful.tag.viewmore(tags_prev, screen)
-			tags_prev = nil
-		else
-			tags_prev = tags
-			awful.tag.history.restore(screen, 1)
-		end
-	end, { description = "Switch to previously focused Tabs", group = "client" }),
 
 	-- Standard program
 	awful.key({ defaults.modkey }, "Return", function()
