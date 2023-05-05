@@ -55,6 +55,8 @@ beautiful.init(theme_path)
 defaults = require("defaults")
 require("layouts")
 require("keybinds")
+require("clients")
+require("cursor")
 
 -- {{{ Wibar
 -- Create a textclock widget
