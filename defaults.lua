@@ -16,6 +16,7 @@ M = {}
 M.modkey = "Mod4"
 
 M.terminal = "alacritty"
+M.dmenu_desktop = 'j4-dmenu-desktop --dmenu="dmenu -i -fn Ubuntu\\ Mono:size=22"'
 
 local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = M.terminal .. " -e " .. editor
