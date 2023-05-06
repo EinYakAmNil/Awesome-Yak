@@ -48,6 +48,7 @@ M.mymainmenu = awful.menu({
 
 M.mylauncher = awful.widget.launcher({
 	image = beautiful.awesome_icon,
+	-- image = "/home/linkai/Dokumente/awesome-icon.png",
 	menu = M.mymainmenu,
 })
 

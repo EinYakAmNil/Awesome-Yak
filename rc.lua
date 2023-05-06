@@ -348,7 +348,7 @@ awful.rules.rules = {
 	},
 	{
 		rule_any = { class = { "krita", "Gimp-2.10", "Blender" } },
-		properties = { tag = defaults.tagsnames["art"], maximized = false },
+		properties = { tag = defaults.tagsnames["art"] },
 	},
 	{
 		rule = { class = "Blender", name = "Blender Preferences" },
@@ -368,6 +368,10 @@ awful.rules.rules = {
 			tag = defaults.tagsnames["games"],
 			fullscreen = true,
 		},
+	},
+	{
+		rule_any = { class = { "riotclientservices.exe", "leagueclient.exe" } },
+		properties = { tag = defaults.tagsnames["trash"] },
 	},
 }
 -- }}}
