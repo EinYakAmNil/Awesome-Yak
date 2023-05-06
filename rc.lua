@@ -150,7 +150,7 @@ awful.screen.connect_for_each_screen(function(s)
 		defaults.tagsnames["videos"],
 		defaults.tagsnames["art"],
 		defaults.tagsnames["audio"],
-		defaults.tagsnames["files"],
+		defaults.tagsnames["communication"],
 		defaults.tagsnames["trash"],
 	}, s, awful.layout.layouts[1])
 

@@ -60,7 +60,7 @@ M.tagsnames = {
 	videos = "󰗃 ",
 	art = "󰏘 ",
 	audio = "𝅘𝅥𝅮♪",
-	files = "󰝰 ",
+	communication = " ",
 	trash = " ",
 }
 
