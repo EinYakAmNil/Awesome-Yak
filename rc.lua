@@ -347,6 +347,10 @@ awful.rules.rules = {
 		properties = { tag = defaults.tagsnames["browser"] },
 	},
 	{
+		rule_any = { class = { "Steam", "Lutris" } },
+		properties = { tag = defaults.tagsnames["gameclients"] },
+	},
+	{
 		rule_any = { class = { "krita", "Gimp-2.10", "Blender" } },
 		properties = { tag = defaults.tagsnames["art"] },
 	},
@@ -368,6 +372,10 @@ awful.rules.rules = {
 			tag = defaults.tagsnames["games"],
 			fullscreen = true,
 		},
+	},
+	{
+		rule_any = { class = { "Signal"} },
+		properties = { tag = defaults.tagsnames["communication"] },
 	},
 	{
 		rule_any = { class = { "riotclientservices.exe", "leagueclient.exe" } },
