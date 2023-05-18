@@ -351,6 +351,10 @@ awful.rules.rules = {
 		properties = { tag = defaults.tagsnames["gameclients"] },
 	},
 	{
+		rule_any = { class = { "mpv" } },
+		properties = { tag = defaults.tagsnames["videos"] },
+	},
+	{
 		rule_any = { class = { "krita", "Gimp-2.10", "Blender" } },
 		properties = { tag = defaults.tagsnames["art"] },
 	},
