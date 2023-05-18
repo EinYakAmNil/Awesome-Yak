@@ -1,7 +1,7 @@
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
-local menubar = require("menubar")
+-- local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local defaults = require("defaults")
 require("awful.hotkeys_popup.keys")
@@ -59,6 +59,9 @@ local globalkeys = gears.table.join(
 	end, { description = "open a terminal", group = "launcher" }),
 	awful.key({ defaults.modkey, "Shift" }, "Return", function()
 		awful.spawn(defaults.dmenu_desktop)
+	end, { description = "launch a desktop application", group = "launcher" }),
+	awful.key({ defaults.modkey }, "y", function()
+		awful.spawn("ytmpv")
 	end, { description = "launch a desktop application", group = "launcher" }),
 	awful.key(
 		{ defaults.modkey, "Control" },
