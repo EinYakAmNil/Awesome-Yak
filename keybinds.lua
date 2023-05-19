@@ -62,7 +62,10 @@ local globalkeys = gears.table.join(
 	end, { description = "launch a desktop application", group = "launcher" }),
 	awful.key({ defaults.modkey }, "y", function()
 		awful.spawn("ytmpv")
-	end, { description = "launch a desktop application", group = "launcher" }),
+	end, { description = "play video in clipboard", group = "launcher" }),
+	awful.key({ defaults.modkey }, "r", function()
+		awful.spawn("fix-inet")
+	end, { description = "traceroute to fix routing issues", group = "launcher" }),
 	awful.key(
 		{ defaults.modkey, "Control" },
 		"r",
@@ -104,7 +107,7 @@ local globalkeys = gears.table.join(
 	end, { description = "restore minimized", group = "client" }),
 
 	-- Prompt
-	awful.key({ defaults.modkey }, "r", function()
+	awful.key({ defaults.modkey, "Shift" }, "r", function()
 		awful.prompt.run({
 			prompt = "Run Lua code: ",
 			textbox = awful.screen.focused().mypromptbox.widget,

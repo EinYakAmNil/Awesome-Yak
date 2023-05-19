@@ -370,6 +370,14 @@ awful.rules.rules = {
 		},
 	},
 	{
+		rule_any = { class = { "league of legends.exe", "ShogunShowdownPrologue.x86_64", "retroarch" } },
+		properties = {
+			screen = 1,
+			tag = defaults.tagsnames["games"],
+			fullscreen = true,
+		},
+	},
+	{
 		rule = { class = "league of legends.exe", "ShogunShowdownPrologue.x86_64", "retroarch" },
 		properties = {
 			screen = 1,
@@ -378,7 +386,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "Signal"} },
+		rule_any = { class = { "Signal" } },
 		properties = { tag = defaults.tagsnames["communication"] },
 	},
 	{
