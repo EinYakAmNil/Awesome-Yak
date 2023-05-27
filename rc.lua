@@ -261,18 +261,18 @@ local clientkeys = gears.table.join(
 		-- minimized, since minimized clients can't have the focus.
 		c.minimized = true
 	end, { description = "minimize", group = "client" }),
-	awful.key({ defaults.modkey }, "m", function(c)
+	awful.key({ defaults.modkey, "Control" }, "m", function(c)
 		c.maximized = not c.maximized
 		c:raise()
-	end, { description = "(un)maximize", group = "client" }),
-	awful.key({ defaults.modkey, "Control" }, "m", function(c)
-		c.maximized_vertical = not c.maximized_vertical
-		c:raise()
-	end, { description = "(un)maximize vertically", group = "client" }),
-	awful.key({ defaults.modkey, "Shift" }, "m", function(c)
-		c.maximized_horizontal = not c.maximized_horizontal
-		c:raise()
-	end, { description = "(un)maximize horizontally", group = "client" })
+	end, { description = "(un)maximize", group = "client" })
+	-- awful.key({ defaults.modkey, "Control" }, "m", function(c)
+	-- 	c.maximized_vertical = not c.maximized_vertical
+	-- 	c:raise()
+	-- end, { description = "(un)maximize vertically", group = "client" }),
+	-- awful.key({ defaults.modkey, "Shift" }, "m", function(c)
+	-- 	c.maximized_horizontal = not c.maximized_horizontal
+	-- 	c:raise()
+	-- end, { description = "(un)maximize horizontally", group = "client" })
 )
 
 local clientbuttons = gears.table.join(

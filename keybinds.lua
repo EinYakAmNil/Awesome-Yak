@@ -66,6 +66,9 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "r", function()
 		awful.spawn("fix-inet")
 	end, { description = "traceroute to fix routing issues", group = "launcher" }),
+	awful.key({ defaults.modkey }, "m", function()
+		awful.spawn("musictl select")
+	end, { description = "music player with status bar integration", group = "launcher" }),
 	awful.key(
 		{ defaults.modkey, "Control" },
 		"r",
