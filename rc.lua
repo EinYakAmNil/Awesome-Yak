@@ -121,6 +121,9 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+-- music_display = wibox.widget.textbox("No songs playing ")
+music_display = wibox.widget.textbox("")
+
 awful.screen.connect_for_each_screen(function(s)
 	separator = wibox.widget.separator({
 		thickness = 5,
@@ -130,12 +133,12 @@ awful.screen.connect_for_each_screen(function(s)
 		layout = wibox.container.scroll.horizontal,
 		max_size = 100,
 		step_function = wibox.container.scroll.step_functions.linear_increase,
-		-- step_function = wibox.container.scroll.step_functions.waiting_nonlinear_back_and_forth,
 		speed = 50,
 		fps = 60,
 		{
-			widget = wibox.widget.textbox,
-			text = "This is a " .. string.rep("very, ", 10) .. " very long text -- ",
+			widget = music_display,
+			text = "No songs playing ",
+			ellipsize = "none",
 		},
 	})
 	-- Wallpaper
@@ -143,15 +146,15 @@ awful.screen.connect_for_each_screen(function(s)
 
 	-- Each screen has its own tag table.
 	awful.tag({
-		defaults.tagsnames["console"],
-		defaults.tagsnames["browser"],
-		defaults.tagsnames["games"],
-		defaults.tagsnames["gameclients"],
-		defaults.tagsnames["videos"],
-		defaults.tagsnames["art"],
-		defaults.tagsnames["audio"],
-		defaults.tagsnames["communication"],
-		defaults.tagsnames["trash"],
+		defaults.tagnames["console"],
+		defaults.tagnames["browser"],
+		defaults.tagnames["games"],
+		defaults.tagnames["gameclients"],
+		defaults.tagnames["videos"],
+		defaults.tagnames["art"],
+		defaults.tagnames["audio"],
+		defaults.tagnames["communication"],
+		defaults.tagnames["trash"],
 	}, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
@@ -344,19 +347,23 @@ awful.rules.rules = {
 	},
 	{
 		rule_any = { class = { "firefox", "Brave-browser" } },
-		properties = { tag = defaults.tagsnames["browser"] },
+		properties = { tag = defaults.tagnames["browser"] },
 	},
 	{
 		rule_any = { class = { "Steam", "Lutris" } },
-		properties = { tag = defaults.tagsnames["gameclients"] },
+		properties = { tag = defaults.tagnames["gameclients"] },
+	},
+	{
+		rule_any = { name = { "Steam" } },
+		properties = { tag = defaults.tagnames["gameclients"] },
 	},
 	{
 		rule_any = { class = { "mpv" } },
-		properties = { tag = defaults.tagsnames["videos"] },
+		properties = { tag = defaults.tagnames["videos"] },
 	},
 	{
 		rule_any = { class = { "krita", "Gimp-2.10", "Blender" } },
-		properties = { tag = defaults.tagsnames["art"] },
+		properties = { tag = defaults.tagnames["art"] },
 	},
 	{
 		rule = { class = "Blender", name = "Blender Preferences" },
@@ -365,7 +372,7 @@ awful.rules.rules = {
 	{
 		rule = { class = "leagueclientux.exe" },
 		properties = {
-			tag = defaults.tagsnames["gameclients"],
+			tag = defaults.tagnames["gameclients"],
 			floating = true,
 		},
 	},
@@ -373,7 +380,7 @@ awful.rules.rules = {
 		rule_any = { class = { "league of legends.exe", "ShogunShowdownPrologue.x86_64", "retroarch" } },
 		properties = {
 			screen = 1,
-			tag = defaults.tagsnames["games"],
+			tag = defaults.tagnames["games"],
 			fullscreen = true,
 		},
 	},
@@ -381,17 +388,17 @@ awful.rules.rules = {
 		rule = { class = "league of legends.exe", "ShogunShowdownPrologue.x86_64", "retroarch" },
 		properties = {
 			screen = 1,
-			tag = defaults.tagsnames["games"],
+			tag = defaults.tagnames["games"],
 			fullscreen = true,
 		},
 	},
 	{
 		rule_any = { class = { "Signal" } },
-		properties = { tag = defaults.tagsnames["communication"] },
+		properties = { tag = defaults.tagnames["communication"] },
 	},
 	{
 		rule_any = { class = { "riotclientservices.exe", "leagueclient.exe" } },
-		properties = { tag = defaults.tagsnames["trash"] },
+		properties = { tag = defaults.tagnames["trash"] },
 	},
 }
 -- }}}

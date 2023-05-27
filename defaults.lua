@@ -52,7 +52,7 @@ M.mylauncher = awful.widget.launcher({
 	menu = M.mymainmenu,
 })
 
-M.tagsnames = {
+M.tagnames = {
 	console = "󰆍 ",
 	browser = "󰈹 ",
 	games = " ",
