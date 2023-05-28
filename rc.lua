@@ -137,6 +137,10 @@ awful.screen.connect_for_each_screen(function(s)
 		step_function = wibox.container.scroll.step_functions.linear_increase,
 		speed = 50,
 		fps = 60,
+		buttons = gears.table.join(
+			awful.button({}, 1, utils.toggle_song),
+			awful.button({}, 3, utils.toggle_song)
+		),
 		{
 			widget = music_display,
 			text = utils.get_song(),

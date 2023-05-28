@@ -12,12 +12,16 @@ utils.get_song = function()
 	end)
 end
 
+utils.toggle_song = function()
+	awful.spawn.easy_async("wimusic toggle", function() end)
+end
+
 utils.volmixer = function()
-	awful.spawn.easy_async("wivolume mixer")
+	awful.spawn.easy_async("wivolume mixer", function() end)
 end
 
 utils.volpavu = function()
-	awful.spawn.easy_async("wivolume pavu")
+	awful.spawn.easy_async("wivolume pavu", function() end)
 end
 
 utils.voldec = function()
