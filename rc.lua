@@ -13,9 +13,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
--- Enable hotkeys help widget for VIM and other apps
--- when client with a matching name is opened:
-require("awful.hotkeys_popup.keys")
+local utils = require("utils")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -121,8 +119,12 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
--- music_display = wibox.widget.textbox("No songs playing ")
-music_display = wibox.widget.textbox("")
+music_display = wibox.widget.textbox()
+vol_display = wibox.widget.textbox()
+
+awful.spawn.easy_async("wivolume status", function(out)
+	vol_display.text = "󰕾 " .. out
+end)
 
 awful.screen.connect_for_each_screen(function(s)
 	separator = wibox.widget.separator({
@@ -137,9 +139,18 @@ awful.screen.connect_for_each_screen(function(s)
 		fps = 60,
 		{
 			widget = music_display,
-			text = "No songs playing ",
+			text = utils.get_song(),
 			ellipsize = "none",
 		},
+	})
+	volume = wibox.widget({
+		widget = vol_display,
+		buttons = gears.table.join(
+			awful.button({}, 1, utils.volmixer),
+			awful.button({}, 3, utils.volpavu),
+			awful.button({}, 4, utils.volinc),
+			awful.button({}, 5, utils.voldec)
+		),
 	})
 	-- Wallpaper
 	set_wallpaper(s)
@@ -222,6 +233,8 @@ awful.screen.connect_for_each_screen(function(s)
 		{
 			-- Right widgets
 			layout = wibox.layout.fixed.horizontal,
+			separator,
+			volume,
 			separator,
 			scroller,
 			separator,

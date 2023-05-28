@@ -4,7 +4,7 @@ local awful = require("awful")
 -- local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local defaults = require("defaults")
-require("awful.hotkeys_popup.keys")
+local utils = require("utils")
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
@@ -21,8 +21,12 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ defaults.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ defaults.modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
-	awful.key({ defaults.modkey }, "Tab", awful.tag.history.restore, { description = "Switch to previously focused Tabs", group = "tag" }),
-
+	awful.key(
+		{ defaults.modkey },
+		"Tab",
+		awful.tag.history.restore,
+		{ description = "Switch to previously focused Tabs", group = "tag" }
+	),
 	awful.key({ defaults.modkey }, "j", function()
 		awful.client.focus.byidx(1)
 	end, { description = "focus next by index", group = "client" }),
@@ -52,6 +56,10 @@ local globalkeys = gears.table.join(
 		awful.client.urgent.jumpto,
 		{ description = "jump to urgent client", group = "client" }
 	),
+
+	-- volume control
+	awful.key({}, "XF86AudioLowerVolume", utils.voldec, { description = "Lower volume by 5%", group = "awesome" }),
+	awful.key({}, "XF86AudioRaiseVolume", utils.volinc, { description = "Raise volume by 5%", group = "awesome" }),
 
 	-- Standard program
 	awful.key({ defaults.modkey }, "Return", function()
@@ -100,7 +108,6 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey, "Shift" }, "space", function()
 		awful.layout.inc(-1)
 	end, { description = "select previous", group = "layout" }),
-
 	awful.key({ defaults.modkey, "Control" }, "n", function()
 		local c = awful.client.restore()
 		-- Focus restored client
