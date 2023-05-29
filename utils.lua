@@ -5,8 +5,11 @@ utils.get_song = function()
 	awful.spawn.easy_async("wimusic status", function(stdout)
 		if string.len(stdout) > 1 then
 			music_display.text = "𝅘𝅥𝅮♪  " .. stdout
+			musicbox:continue()
 		else
 			music_display.text = "No songs playing "
+			musicbox:pause()
+			musicbox:reset_scrolling()
 		end
 		music_display.forced_width = music_display:get_preferred_size(1) + 20
 	end)
@@ -17,7 +20,10 @@ utils.toggle_song = function()
 end
 
 utils.quit_mpv = function()
-	awful.spawn.easy_async("wimusic quit", function() end)
+	awful.spawn.easy_async("wimusic quit", function()
+		musicbox:pause()
+		musicbox:reset_scrolling()
+	end)
 end
 
 utils.get_vol = function()

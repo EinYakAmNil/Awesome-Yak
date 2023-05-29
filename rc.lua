@@ -128,9 +128,9 @@ awful.screen.connect_for_each_screen(function(s)
 		thickness = 5,
 		forced_width = 20,
 	})
-	scroller = wibox.widget({
+	musicbox = wibox.widget({
 		layout = wibox.container.scroll.horizontal,
-		max_size = 100,
+		max_size = 130,
 		step_function = wibox.container.scroll.step_functions.linear_increase,
 		speed = 50,
 		fps = 60,
@@ -141,7 +141,7 @@ awful.screen.connect_for_each_screen(function(s)
 			ellipsize = "none",
 		},
 	})
-	volume = wibox.widget({
+	volbox = wibox.widget({
 		widget = vol_display,
 		text = utils.get_vol(),
 		buttons = gears.table.join(
@@ -233,9 +233,9 @@ awful.screen.connect_for_each_screen(function(s)
 			-- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			separator,
-			volume,
+			volbox,
 			separator,
-			scroller,
+			musicbox,
 			separator,
 			wibox.widget.systray(),
 			mytextclock,
@@ -429,3 +429,5 @@ client.connect_signal("manage", function(c)
 end)
 
 beautiful.useless_gap = 5
+musicbox:reset_scrolling()
+musicbox:pause()
