@@ -13,6 +13,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
+--My own library
 local utils = require("utils")
 
 -- {{{ Error handling
@@ -122,10 +123,6 @@ screen.connect_signal("property::geometry", set_wallpaper)
 music_display = wibox.widget.textbox()
 vol_display = wibox.widget.textbox()
 
-awful.spawn.easy_async("wivolume status", function(out)
-	vol_display.text = "󰕾 " .. out
-end)
-
 awful.screen.connect_for_each_screen(function(s)
 	separator = wibox.widget.separator({
 		thickness = 5,
@@ -137,10 +134,7 @@ awful.screen.connect_for_each_screen(function(s)
 		step_function = wibox.container.scroll.step_functions.linear_increase,
 		speed = 50,
 		fps = 60,
-		buttons = gears.table.join(
-			awful.button({}, 1, utils.toggle_song),
-			awful.button({}, 3, utils.toggle_song)
-		),
+		buttons = gears.table.join(awful.button({}, 1, utils.toggle_song), awful.button({}, 3, utils.toggle_song)),
 		{
 			widget = music_display,
 			text = utils.get_song(),
@@ -149,6 +143,7 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 	volume = wibox.widget({
 		widget = vol_display,
+		text = utils.get_vol(),
 		buttons = gears.table.join(
 			awful.button({}, 1, utils.volmixer),
 			awful.button({}, 3, utils.volpavu),
