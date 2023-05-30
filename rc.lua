@@ -162,7 +162,7 @@ awful.screen.connect_for_each_screen(function(s)
 		defaults.tagnames["gameclients"],
 		defaults.tagnames["videos"],
 		defaults.tagnames["art"],
-		defaults.tagnames["audio"],
+		defaults.tagnames["docs"],
 		defaults.tagnames["communication"],
 		defaults.tagnames["trash"],
 	}, s, awful.layout.layouts[1])
