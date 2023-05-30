@@ -59,7 +59,7 @@ M.tagnames = {
 	gameclients = "󰓓 ",
 	videos = "󰗃 ",
 	art = "󰏘 ",
-	docs = "󱉟",
+	docs = "󱉟 ",
 	communication = " ",
 	trash = " ",
 }
