@@ -19,6 +19,22 @@ utils.toggle_song = function()
 	awful.spawn.easy_async("wimusic toggle", function() end)
 end
 
+utils.next_song = function()
+	awful.spawn.easy_async("wimusic next", function() end)
+end
+
+utils.prev_song = function()
+	awful.spawn.easy_async("wimusic prev", function() end)
+end
+
+utils.songs_notify = function()
+	awful.spawn.easy_async("wimusic notify", function() end)
+end
+
+utils.copy_song = function()
+	awful.spawn.easy_async("wimusic copy", function() end)
+end
+
 utils.quit_mpv = function()
 	awful.spawn.easy_async("wimusic quit", function()
 		musicbox:pause()
@@ -54,6 +70,14 @@ end
 
 utils.volinc = function()
 	awful.spawn.easy_async("wivolume inc", function()
+		awful.spawn.easy_async("wivolume status", function(stdout)
+			vol_display.text = "󰕾 " .. stdout
+		end)
+	end)
+end
+
+utils.default_vol = function()
+	awful.spawn.easy_async("wivolume default", function()
 		awful.spawn.easy_async("wivolume status", function(stdout)
 			vol_display.text = "󰕾 " .. stdout
 		end)
