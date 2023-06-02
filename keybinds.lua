@@ -60,6 +60,8 @@ local globalkeys = gears.table.join(
 	-- music control
 	awful.key({}, "XF86AudioPlay", utils.toggle_song, { description = "Quit music player", group = "awesome" }),
 	awful.key({}, "XF86AudioStop", utils.quit_mpv, { description = "Toggle playing of music", group = "awesome" }),
+	awful.key({}, "XF86AudioNext", utils.next_song, { description = "Play next song in playlist", group = "awesome" }),
+	awful.key({}, "XF86AudioPrev", utils.prev_song, { description = "Play previous song in playlist", group = "awesome" }),
 	-- volume control
 	awful.key({}, "XF86AudioLowerVolume", utils.voldec, { description = "Lower volume by 5%", group = "awesome" }),
 	awful.key({}, "XF86AudioRaiseVolume", utils.volinc, { description = "Raise volume by 5%", group = "awesome" }),
