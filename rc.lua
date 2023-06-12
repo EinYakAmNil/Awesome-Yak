@@ -401,6 +401,8 @@ awful.rules.rules = {
 				"steam_app_.*",
 				"league of legends.exe",
 				"ShogunShowdownPrologue.x86_64",
+				"medieval2.exe",
+				"assassinscreed_dx10.exe",
 				"retroarch",
 			},
 		},
@@ -411,15 +413,8 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule = { class = "league of legends.exe", "ShogunShowdownPrologue.x86_64", "retroarch" },
-		properties = {
-			screen = 1,
-			tag = defaults.tagnames["games"],
-			fullscreen = true,
-		},
-	},
-	{
 		rule_any = { class = { "Signal" } },
+		screen = 2,
 		properties = { tag = defaults.tagnames["communication"] },
 	},
 	{
