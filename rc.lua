@@ -414,8 +414,7 @@ awful.rules.rules = {
 	},
 	{
 		rule_any = { class = { "Signal" } },
-		screen = 2,
-		properties = { tag = defaults.tagnames["communication"] },
+		properties = { screen = 2, tag = defaults.tagnames["communication"] },
 	},
 	{
 		rule_any = { class = { "riotclientservices.exe", "leagueclient.exe" } },
