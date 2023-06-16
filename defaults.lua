@@ -17,7 +17,7 @@ M.modkey = "Mod4"
 
 M.terminal = os.getenv("TERM") or "alacritty"
 -- M.dmenu_desktop = 'j4-dmenu-desktop --term alacritty --dmenu="dmenu -i -fn Ubuntu\\ Mono:size=22"'
-M.dmenu_desktop = "rofi -drun-match-fields name -show drun"
+M.dmenu_desktop = "rofi -show drun"
 
 local editor = os.getenv("EDITOR") or "nvim"
 local editor_cmd = M.terminal .. " -e " .. editor
