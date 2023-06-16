@@ -1,5 +1,20 @@
 local gears = require("gears")
 local awful = require("awful")
+local utils = require("utils")
+
+-- {{{ Mouse bindings
+root.buttons(gears.table.join(
+	awful.button({}, 1, function()
+		utils.change_wallpaper()
+	end),
+	awful.button({}, 3, function()
+		defaults.mymainmenu:toggle()
+	end),
+	awful.button({}, 4, awful.tag.viewprev),
+	awful.button({}, 5, awful.tag.viewnext)
+))
+-- }}}
+--
 local M = {}
 
 -- Enable sloppy focus, so that focus follows mouse.

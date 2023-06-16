@@ -1,27 +1,13 @@
 local awful = require("awful")
 local gears = require("gears")
-local hotkeys_popup = require("awful.hotkeys_popup")
+local help = require("help")
 
 local defaults = require("defaults")
-local utils = require("utils")
 local bar = require("statusbar")
-
--- {{{ Mouse bindings
-root.buttons(gears.table.join(
-	awful.button({}, 1, function()
-		utils.change_wallpaper()
-	end),
-	awful.button({}, 3, function()
-		defaults.mymainmenu:toggle()
-	end),
-	awful.button({}, 4, awful.tag.viewprev),
-	awful.button({}, 5, awful.tag.viewnext)
-))
--- }}}
 
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
-	awful.key({ defaults.modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
+	awful.key({ defaults.modkey }, "s", help.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ defaults.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ defaults.modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key(
@@ -60,14 +46,14 @@ local globalkeys = gears.table.join(
 		{ description = "jump to urgent client", group = "client" }
 	),
 
-	-- music control
-	awful.key({}, "XF86AudioPlay", bar.toggle_song, { description = "Quit music player", group = "awesome" }),
-	awful.key({}, "XF86AudioStop", bar.quit_mpv, { description = "Toggle playing of music", group = "awesome" }),
-	awful.key({}, "XF86AudioNext", bar.next_song, { description = "Play next song in playlist", group = "awesome" }),
-	awful.key({}, "XF86AudioPrev", bar.prev_song, { description = "Play previous song in playlist", group = "awesome" }),
+	-- media keys
+	awful.key({}, "XF86AudioPlay", bar.toggle_song, { description = "Toggle music player", group = "media keys" }),
+	awful.key({}, "XF86AudioStop", bar.quit_mpv, { description = "Quit music player", group = "media keys" }),
+	awful.key({}, "XF86AudioNext", bar.next_song, { description = "Play next song in playlist", group = "media keys" }),
+	awful.key({}, "XF86AudioPrev", bar.prev_song, { description = "Play previous song in playlist", group = "media keys" }),
 	-- volume control
-	awful.key({}, "XF86AudioLowerVolume", bar.voldec, { description = "Lower volume by 5%", group = "awesome" }),
-	awful.key({}, "XF86AudioRaiseVolume", bar.volinc, { description = "Raise volume by 5%", group = "awesome" }),
+	awful.key({}, "XF86AudioLowerVolume", bar.voldec, { description = "Lower volume by 5%", group = "media keys" }),
+	awful.key({}, "XF86AudioRaiseVolume", bar.volinc, { description = "Raise volume by 5%", group = "media keys" }),
 
 	-- Standard program
 	awful.key({ defaults.modkey }, "Return", function()
