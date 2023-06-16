@@ -44,8 +44,8 @@ beautiful.init(theme_path)
 
 -- Include my other config files
 defaults = require("defaults")
-require("statusbar")
 require("layouts")
+require("statusbar")
 require("keybinds")
 require("clients")
 
