@@ -3,16 +3,17 @@ local awful = require("awful")
 local utils = require("utils")
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
-	awful.button({}, 1, function()
-		utils.change_wallpaper()
-	end),
-	awful.button({}, 3, function()
-		defaults.mymainmenu:toggle()
-	end),
-	awful.button({}, 4, awful.tag.viewprev),
-	awful.button({}, 5, awful.tag.viewnext)
-))
+root.buttons(
+	gears.table.join(
+		awful.button({}, 1, utils.launch_app),
+		awful.button({ defaults.modkey }, 1, utils.change_wallpaper),
+		awful.button({}, 3, function()
+			defaults.mymainmenu:toggle()
+		end),
+		awful.button({}, 4, awful.tag.viewprev),
+		awful.button({}, 5, awful.tag.viewnext)
+	)
+)
 -- }}}
 --
 local M = {}

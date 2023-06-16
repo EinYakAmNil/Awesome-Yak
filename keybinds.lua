@@ -2,8 +2,9 @@ local awful = require("awful")
 local gears = require("gears")
 local help = require("help")
 
-local defaults = require("defaults")
 local bar = require("statusbar")
+local defaults = require("defaults")
+local utils = require("utils")
 
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
@@ -50,7 +51,12 @@ local globalkeys = gears.table.join(
 	awful.key({}, "XF86AudioPlay", bar.toggle_song, { description = "Toggle music player", group = "media keys" }),
 	awful.key({}, "XF86AudioStop", bar.quit_mpv, { description = "Quit music player", group = "media keys" }),
 	awful.key({}, "XF86AudioNext", bar.next_song, { description = "Play next song in playlist", group = "media keys" }),
-	awful.key({}, "XF86AudioPrev", bar.prev_song, { description = "Play previous song in playlist", group = "media keys" }),
+	awful.key(
+		{},
+		"XF86AudioPrev",
+		bar.prev_song,
+		{ description = "Play previous song in playlist", group = "media keys" }
+	),
 	-- volume control
 	awful.key({}, "XF86AudioLowerVolume", bar.voldec, { description = "Lower volume by 5%", group = "media keys" }),
 	awful.key({}, "XF86AudioRaiseVolume", bar.volinc, { description = "Raise volume by 5%", group = "media keys" }),
@@ -59,9 +65,12 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "Return", function()
 		awful.spawn(defaults.terminal)
 	end, { description = "open a terminal", group = "launcher" }),
-	awful.key({ defaults.modkey, "Shift" }, "Return", function()
-		awful.spawn(defaults.dmenu_desktop)
-	end, { description = "launch a desktop application", group = "launcher" }),
+	awful.key(
+		{ defaults.modkey, "Shift" },
+		"Return",
+		utils.launch_app,
+		{ description = "launch a desktop application", group = "launcher" }
+	),
 	awful.key({ defaults.modkey }, "y", function()
 		awful.spawn("ytmpv")
 	end, { description = "play video in clipboard", group = "launcher" }),
