@@ -1,5 +1,5 @@
-require("utils")
-utils.get_song()
+local bar = require("statusbar")
+bar.get_song()
 
 -- TODO
 --

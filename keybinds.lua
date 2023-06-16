@@ -1,13 +1,16 @@
--- Standard awesome library
-local gears = require("gears")
 local awful = require("awful")
--- local menubar = require("menubar")
+local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup")
+
 local defaults = require("defaults")
 local utils = require("utils")
+local bar = require("statusbar")
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
+	awful.button({}, 1, function()
+		utils.change_wallpaper()
+	end),
 	awful.button({}, 3, function()
 		defaults.mymainmenu:toggle()
 	end),
@@ -58,13 +61,13 @@ local globalkeys = gears.table.join(
 	),
 
 	-- music control
-	awful.key({}, "XF86AudioPlay", utils.toggle_song, { description = "Quit music player", group = "awesome" }),
-	awful.key({}, "XF86AudioStop", utils.quit_mpv, { description = "Toggle playing of music", group = "awesome" }),
-	awful.key({}, "XF86AudioNext", utils.next_song, { description = "Play next song in playlist", group = "awesome" }),
-	awful.key({}, "XF86AudioPrev", utils.prev_song, { description = "Play previous song in playlist", group = "awesome" }),
+	awful.key({}, "XF86AudioPlay", bar.toggle_song, { description = "Quit music player", group = "awesome" }),
+	awful.key({}, "XF86AudioStop", bar.quit_mpv, { description = "Toggle playing of music", group = "awesome" }),
+	awful.key({}, "XF86AudioNext", bar.next_song, { description = "Play next song in playlist", group = "awesome" }),
+	awful.key({}, "XF86AudioPrev", bar.prev_song, { description = "Play previous song in playlist", group = "awesome" }),
 	-- volume control
-	awful.key({}, "XF86AudioLowerVolume", utils.voldec, { description = "Lower volume by 5%", group = "awesome" }),
-	awful.key({}, "XF86AudioRaiseVolume", utils.volinc, { description = "Raise volume by 5%", group = "awesome" }),
+	awful.key({}, "XF86AudioLowerVolume", bar.voldec, { description = "Lower volume by 5%", group = "awesome" }),
+	awful.key({}, "XF86AudioRaiseVolume", bar.volinc, { description = "Raise volume by 5%", group = "awesome" }),
 
 	-- Standard program
 	awful.key({ defaults.modkey }, "Return", function()

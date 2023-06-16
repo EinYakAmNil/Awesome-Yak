@@ -5,5 +5,3 @@ awful.layout.layouts = {
 	awful.layout.suit.floating,
 	awful.layout.suit.max.fullscreen,
 }
-
-
