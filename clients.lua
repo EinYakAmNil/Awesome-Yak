@@ -4,8 +4,12 @@ local cursor = require("cursor")
 
 require("awful.autofocus")
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+client.connect_signal("focus", function(c)
+	c.border_color = beautiful.border_focus
+end)
+client.connect_signal("unfocus", function(c)
+	c.border_color = beautiful.border_normal
+end)
 
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = {
@@ -81,6 +85,10 @@ awful.rules.rules = {
 	{
 		rule_any = { class = { "krita", "Gimp-2.10", "Blender" } },
 		properties = { tag = defaults.tagnames["art"] },
+	},
+	{
+		rule_any = { class = { "calibre", "Zathura" } },
+		properties = { tag = defaults.tagnames["docs"] },
 	},
 	{
 		rule = { class = "Blender", name = "Blender Preferences" },
