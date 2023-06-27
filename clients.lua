@@ -67,7 +67,7 @@ awful.rules.rules = {
 		properties = { floating = true },
 	},
 	{
-		rule_any = { class = { "firefox", "Brave-browser" } },
+		rule_any = { class = { "firefox", "Brave-browser", "DB Browser for SQLite" } },
 		properties = { tag = defaults.tagnames["browser"] },
 	},
 	{
