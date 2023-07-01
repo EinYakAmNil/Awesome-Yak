@@ -119,7 +119,7 @@ awful.rules.rules = {
 		},
 	},
 	{
-		rule_any = { class = { "Signal" } },
+		rule_any = { class = { "Signal", "thunderbird" } },
 		properties = { screen = 2, tag = defaults.tagnames["communication"] },
 	},
 	{
