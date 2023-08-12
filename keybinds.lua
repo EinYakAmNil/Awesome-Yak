@@ -74,6 +74,9 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "y", function()
 		awful.spawn("ytmpv")
 	end, { description = "play video in clipboard", group = "launcher" }),
+	awful.key({ defaults.modkey }, "p", function()
+		awful.spawn("rofi-pass")
+	end, { description = "Choose from password store using rofi", group = "launcher" }),
 	awful.key({ defaults.modkey }, "r", function()
 		awful.spawn("fix-inet")
 	end, { description = "traceroute to fix routing issues", group = "launcher" }),
