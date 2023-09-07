@@ -2,6 +2,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local menubar = require("menubar")
+-- local theme = 
 -- Define defaults used by all modules here
 
 -- This is used later as the default terminal and editor to run.
@@ -43,14 +44,18 @@ M.myawesomemenu = {
 	},
 }
 
-M.mymainmenu = awful.menu({
-	items = { { "awesome", M.myawesomemenu, beautiful.awesome_icon }, { "open terminal", M.terminal } },
+M.mainmenu = awful.menu({
+	items = {
+		{ "awesome", M.myawesomemenu, beautiful.awesome_icon },
+		{ "select music", "musictl select", "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/audio-x-generic-symbolic.svg" },
+		{ "open terminal", M.terminal, "/usr/share/icons/Papirus/22x22/apps/gnome-terminal.svg" }
+	},
 })
 
-M.mylauncher = awful.widget.launcher({
+M.launcher = awful.widget.launcher({
 	image = beautiful.awesome_icon,
 	-- image = "/home/linkai/Dokumente/awesome-icon.png",
-	menu = M.mymainmenu,
+	menu = M.mainmenu,
 })
 
 M.tagnames = {

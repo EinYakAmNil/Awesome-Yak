@@ -1,6 +1,7 @@
 local beautiful = require("beautiful")
 local awful = require("awful")
 local cursor = require("cursor")
+local defaults = require("defaults")
 
 require("awful.autofocus")
 

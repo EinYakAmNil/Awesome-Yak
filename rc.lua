@@ -43,7 +43,7 @@ local theme_path = gears.filesystem.get_xdg_config_home() .. "awesome/themes/yak
 beautiful.init(theme_path)
 
 -- Include my other config files
-defaults = require("defaults")
+require("defaults")
 require("layouts")
 require("statusbar")
 require("keybinds")

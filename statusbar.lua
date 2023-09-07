@@ -1,6 +1,7 @@
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
+local defaults = require("defaults")
 
 local M = {}
 
@@ -241,7 +242,7 @@ awful.screen.connect_for_each_screen(function(s)
 		{
 			-- Left widgets
 			layout = wibox.layout.fixed.horizontal,
-			defaults.mylauncher,
+			defaults.launcher,
 			s.mytaglist,
 			M.separator,
 			s.mypromptbox,

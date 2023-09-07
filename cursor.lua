@@ -1,6 +1,7 @@
 local gears = require("gears")
 local awful = require("awful")
 local utils = require("utils")
+local defaults = require("defaults")
 
 -- {{{ Mouse bindings
 root.buttons(
@@ -8,7 +9,7 @@ root.buttons(
 		awful.button({}, 1, utils.launch_app),
 		awful.button({ defaults.modkey }, 1, utils.change_wallpaper),
 		awful.button({}, 3, function()
-			defaults.mymainmenu:toggle()
+			defaults.mainmenu:toggle()
 		end),
 		awful.button({}, 4, awful.tag.viewprev),
 		awful.button({}, 5, awful.tag.viewnext)
