@@ -8,7 +8,7 @@ local utils = require("utils")
 
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
-	awful.key({ defaults.modkey }, "s", help.show_help, { description = "show help", group = "awesome" }),
+	awful.key({ defaults.modkey, "Shift" }, "s", help.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ defaults.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ defaults.modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key(
@@ -66,10 +66,9 @@ local globalkeys = gears.table.join(
 		awful.spawn(defaults.terminal)
 	end, { description = "open a terminal", group = "launcher" }),
 	awful.key(
-		{ defaults.modkey, "Shift" },
-		"Return",
-		utils.launch_app,
-		{ description = "launch a desktop application", group = "launcher" }
+		{ defaults.modkey, "Shift" }, "Return", function ()
+			awful.spawn(defaults.rofi_desktop)
+		end, { description = "launch a desktop application", group = "launcher" }
 	),
 	awful.key({ defaults.modkey }, "y", function()
 		awful.spawn("ytmpv")
@@ -79,6 +78,9 @@ local globalkeys = gears.table.join(
 	end, { description = "Choose from password store using rofi", group = "launcher" }),
 	awful.key({ defaults.modkey }, "r", function()
 		awful.spawn("fix-inet")
+	end, { description = "traceroute to fix routing issues", group = "launcher" }),
+	awful.key({ defaults.modkey }, "s", function()
+		awful.spawn(defaults.rofi_ssh)
 	end, { description = "traceroute to fix routing issues", group = "launcher" }),
 	awful.key({ defaults.modkey }, "m", function()
 		awful.spawn("musictl select")
@@ -96,12 +98,6 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey, "Shift" }, "h", function()
 		awful.tag.incmwfact(-0.05)
 	end, { description = "decrease master width factor", group = "layout" }),
-	-- awful.key({ defaults.modkey, "Shift" }, "h", function()
-	-- 	awful.tag.incnmaster(1, nil, true)
-	-- end, { description = "increase the number of master clients", group = "layout" }),
-	-- awful.key({ defaults.modkey, "Shift" }, "l", function()
-	-- 	awful.tag.incnmaster(-1, nil, true)
-	-- end, { description = "decrease the number of master clients", group = "layout" }),
 	awful.key({ defaults.modkey, "Control" }, "h", function()
 		awful.tag.incncol(1, nil, true)
 	end, { description = "increase the number of columns", group = "layout" }),
@@ -131,10 +127,6 @@ local globalkeys = gears.table.join(
 			history_path = awful.util.get_cache_dir() .. "/history_eval",
 		})
 	end, { description = "lua execute prompt", group = "awesome" })
-	-- Menubar
-	-- awful.key({ defaults.modkey }, "p", function()
-	-- 	menubar.show()
-	-- end, { description = "show the menubar", group = "launcher" })
 )
 
 -- Bind all key numbers to tags.
