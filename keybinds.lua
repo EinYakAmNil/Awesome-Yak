@@ -69,9 +69,9 @@ local globalkeys = gears.table.join(
 		{ defaults.modkey, "Shift" }, "Return", utils.launch_app,
 		{ description = "launch a desktop application", group = "launcher" }
 	),
-	awful.key({ defaults.modkey }, "y", function()
-		awful.spawn("ytmpv")
-	end, { description = "play video in clipboard", group = "launcher" }),
+	awful.key({ defaults.modkey }, "m", function()
+		awful.spawn("musictl select")
+	end, { description = "music player with status bar integration", group = "launcher" }),
 	awful.key({ defaults.modkey }, "p", function()
 		awful.spawn("rofi-pass")
 	end, { description = "Choose from password store using rofi", group = "launcher" }),
@@ -81,9 +81,12 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "s", function()
 		awful.spawn(defaults.rofi_ssh)
 	end, { description = "traceroute to fix routing issues", group = "launcher" }),
-	awful.key({ defaults.modkey }, "m", function()
-		awful.spawn("musictl select")
-	end, { description = "music player with status bar integration", group = "launcher" }),
+	awful.key({ defaults.modkey, "Shift" }, "v", function()
+		awful.spawn("vpnctl")
+	end, { description = "control VPNs via NetworkManager", group = "launcher" }),
+	awful.key({ defaults.modkey }, "y", function()
+		awful.spawn("ytmpv")
+	end, { description = "play video in clipboard", group = "launcher" }),
 	awful.key(
 		{ defaults.modkey, "Control" },
 		"r",
