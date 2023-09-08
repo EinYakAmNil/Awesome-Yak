@@ -64,11 +64,10 @@ local globalkeys = gears.table.join(
 	-- Standard program
 	awful.key({ defaults.modkey }, "Return", function()
 		awful.spawn(defaults.terminal)
-	end, { description = "open a terminal", group = "launcher" }),
+		end, { description = "open a terminal", group = "launcher" }),
 	awful.key(
-		{ defaults.modkey, "Shift" }, "Return", function ()
-			awful.spawn(defaults.rofi_desktop)
-		end, { description = "launch a desktop application", group = "launcher" }
+		{ defaults.modkey, "Shift" }, "Return", utils.launch_app,
+		{ description = "launch a desktop application", group = "launcher" }
 	),
 	awful.key({ defaults.modkey }, "y", function()
 		awful.spawn("ytmpv")
