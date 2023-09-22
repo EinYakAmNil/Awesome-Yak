@@ -48,8 +48,8 @@ M.myawesomemenu = {
 M.mainmenu = awful.menu({
 	items = {
 		{ "awesome", M.myawesomemenu, beautiful.awesome_icon },
+		{ "open terminal", M.terminal, "/usr/share/icons/Papirus/22x22/apps/gnome-terminal.svg" },
 		{ "select music", "musictl select", "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/audio-x-generic-symbolic.svg" },
-		{ "open terminal", M.terminal, "/usr/share/icons/Papirus/22x22/apps/gnome-terminal.svg" }
 	},
 })
 
