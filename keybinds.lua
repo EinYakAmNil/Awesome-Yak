@@ -188,11 +188,14 @@ M.client_keys = gears.table.join(
 		c:swap(awful.client.getmaster())
 	end, { description = "move to master", group = "client" }),
 	awful.key({ defaults.modkey, "Shift" }, "h", function(c)
-		c:move_to_screen(screen[c.screen.index-1])
+		c:move_to_screen(screen[c.screen.index - 1])
 	end, { description = "move to right screen", group = "client" }),
 	awful.key({ defaults.modkey, "Shift" }, "l", function(c)
-		c:move_to_screen(screen[c.screen.index+1])
+		c:move_to_screen(screen[c.screen.index + 1])
 	end, { description = "move to left screen", group = "client" }),
+	awful.key({ defaults.modkey, "Shift" }, "s", function(c)
+			c.sticky = not c.sticky
+	end, { description = "make client sticky", group = "client" }),
 	awful.key({ defaults.modkey }, "n", function(c)
 		c.minimized = true
 	end, { description = "minimize", group = "client" }),
