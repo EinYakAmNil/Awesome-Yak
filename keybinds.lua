@@ -6,9 +6,11 @@ local bar = require("statusbar")
 local defaults = require("defaults")
 local utils = require("utils")
 
+local M = {}
+
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
-	awful.key({ defaults.modkey, "Shift" }, "s", help.show_help, { description = "show help", group = "awesome" }),
+	awful.key({ defaults.modkey, "Shift" }, "space", help.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ defaults.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ defaults.modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key(
@@ -64,7 +66,7 @@ local globalkeys = gears.table.join(
 	-- Standard program
 	awful.key({ defaults.modkey }, "Return", function()
 		awful.spawn(defaults.terminal)
-		end, { description = "open a terminal", group = "launcher" }),
+	end, { description = "open a terminal", group = "launcher" }),
 	awful.key(
 		{ defaults.modkey, "Shift" }, "Return", utils.launch_app,
 		{ description = "launch a desktop application", group = "launcher" }
@@ -94,18 +96,12 @@ local globalkeys = gears.table.join(
 		{ description = "reload awesome", group = "awesome" }
 	),
 	awful.key({ defaults.modkey, "Shift" }, "x", awesome.quit, { description = "quit awesome", group = "awesome" }),
-	awful.key({ defaults.modkey, "Shift" }, "l", function()
+	awful.key({ defaults.modkey, "Control" }, "l", function()
 		awful.tag.incmwfact(0.05)
 	end, { description = "increase master width factor", group = "layout" }),
-	awful.key({ defaults.modkey, "Shift" }, "h", function()
+	awful.key({ defaults.modkey, "Control" }, "h", function()
 		awful.tag.incmwfact(-0.05)
 	end, { description = "decrease master width factor", group = "layout" }),
-	awful.key({ defaults.modkey, "Control" }, "h", function()
-		awful.tag.incncol(1, nil, true)
-	end, { description = "increase the number of columns", group = "layout" }),
-	awful.key({ defaults.modkey, "Control" }, "l", function()
-		awful.tag.incncol(-1, nil, true)
-	end, { description = "decrease the number of columns", group = "layout" }),
 	awful.key({ defaults.modkey }, "space", function()
 		awful.layout.inc(1)
 	end, { description = "select next", group = "layout" }),
@@ -174,5 +170,38 @@ for i = 1, 9 do
 	)
 end
 
+M.client_keys = gears.table.join(
+	awful.key({ defaults.modkey }, "f", function(c)
+		c.fullscreen = not c.fullscreen
+		c:raise()
+	end, { description = "toggle fullscreen", group = "client" }),
+	awful.key({ defaults.modkey, "Shift" }, "q", function(c)
+		c:kill()
+	end, { description = "close", group = "client" }),
+	awful.key(
+		{ defaults.modkey, "Shift" },
+		"f",
+		awful.client.floating.toggle,
+		{ description = "toggle floating", group = "client" }
+	),
+	awful.key({ defaults.modkey, "Control" }, "Return", function(c)
+		c:swap(awful.client.getmaster())
+	end, { description = "move to master", group = "client" }),
+	awful.key({ defaults.modkey, "Shift" }, "h", function(c)
+		c:move_to_screen(screen[c.screen.index-1])
+	end, { description = "move to right screen", group = "client" }),
+	awful.key({ defaults.modkey, "Shift" }, "l", function(c)
+		c:move_to_screen(screen[c.screen.index+1])
+	end, { description = "move to left screen", group = "client" }),
+	awful.key({ defaults.modkey }, "n", function(c)
+		c.minimized = true
+	end, { description = "minimize", group = "client" }),
+	awful.key({ defaults.modkey, "Control" }, "m", function(c)
+		c.maximized = not c.maximized
+		c:raise()
+	end, { description = "(un)maximize", group = "client" })
+)
+
 root.keys(globalkeys)
--- }}}
+
+return M

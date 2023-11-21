@@ -1,6 +1,7 @@
 local beautiful = require("beautiful")
 local awful = require("awful")
 local cursor = require("cursor")
+local keybinds = require("keybinds")
 local defaults = require("defaults")
 
 require("awful.autofocus")
@@ -22,8 +23,8 @@ awful.rules.rules = {
 			border_color = beautiful.border_normal,
 			focus = awful.client.focus.filter,
 			raise = true,
-			keys = cursor["keys"],
-			buttons = cursor["buttons"],
+			keys = keybinds.client_keys,
+			buttons = cursor.buttons,
 			screen = awful.screen.preferred,
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
 		},
