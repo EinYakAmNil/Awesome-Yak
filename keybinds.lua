@@ -10,7 +10,7 @@ local M = {}
 
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
-	awful.key({ defaults.modkey, "Shift" }, "space", help.show_help, { description = "show help", group = "awesome" }),
+	awful.key({ defaults.modkey, "Control" }, "a", help.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ defaults.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ defaults.modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key(
