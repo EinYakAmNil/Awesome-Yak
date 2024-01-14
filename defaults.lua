@@ -67,7 +67,7 @@ M.tagnames = {
 	art = "󰏘 ",
 	docs = "󱉟 ",
 	communication = " ",
-	trash = " ",
+	download = "󰇚",
 }
 
 return M

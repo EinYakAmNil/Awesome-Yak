@@ -10,7 +10,7 @@ local M = {}
 
 -- {{{ Key bindings
 local globalkeys = gears.table.join(
-	awful.key({ defaults.modkey, "Control" }, "a", help.show_help, { description = "show help", group = "awesome" }),
+	awful.key({ defaults.modkey }, "F1", help.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ defaults.modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ defaults.modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
 	awful.key(
@@ -71,6 +71,9 @@ local globalkeys = gears.table.join(
 		{ defaults.modkey, "Shift" }, "Return", utils.launch_app,
 		{ description = "launch a desktop application", group = "launcher" }
 	),
+	awful.key({ defaults.modkey }, "d", function()
+		awful.spawn("rofi-music-dl")
+	end, { description = "play video in clipboard", group = "launcher" }),
 	awful.key({ defaults.modkey }, "m", function()
 		awful.spawn("musictl select")
 	end, { description = "music player with status bar integration", group = "launcher" }),
@@ -194,7 +197,7 @@ M.client_keys = gears.table.join(
 		c:move_to_screen(screen[c.screen.index + 1])
 	end, { description = "move to left screen", group = "client" }),
 	awful.key({ defaults.modkey, "Shift" }, "s", function(c)
-			c.sticky = not c.sticky
+		c.sticky = not c.sticky
 	end, { description = "make client sticky", group = "client" }),
 	awful.key({ defaults.modkey }, "n", function(c)
 		c.minimized = true

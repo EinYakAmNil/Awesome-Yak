@@ -126,7 +126,7 @@ awful.rules.rules = {
 	},
 	{
 		rule_any = { class = { "riotclientservices.exe", "leagueclient.exe" } },
-		properties = { tag = defaults.tagnames["trash"] },
+		properties = { tag = defaults.tagnames["download"] },
 	},
 }
 -- }}}

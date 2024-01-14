@@ -183,7 +183,7 @@ awful.screen.connect_for_each_screen(function(s)
 		defaults.tagnames["art"],
 		defaults.tagnames["docs"],
 		defaults.tagnames["communication"],
-		defaults.tagnames["trash"],
+		defaults.tagnames["download"],
 	}, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
