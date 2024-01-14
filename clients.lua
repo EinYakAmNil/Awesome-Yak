@@ -74,7 +74,7 @@ awful.rules.rules = {
 	},
 	{
 		rule_any = { class = { "DB Browser for SQLite" } },
-		properties = { tag = defaults.tagnames["browser"] },
+		properties = { tag = defaults.tagnames["download"] },
 	},
 	{
 		rule_any = { class = { "Steam", "Lutris" } },
