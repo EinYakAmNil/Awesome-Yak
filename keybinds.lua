@@ -75,7 +75,7 @@ local globalkeys = gears.table.join(
 		awful.spawn("rofi-music-dl")
 	end, { description = "play video in clipboard", group = "launcher" }),
 	awful.key({ defaults.modkey }, "m", function()
-		awful.spawn("musictl select")
+		awful.spawn("wimusic select")
 	end, { description = "music player with status bar integration", group = "launcher" }),
 	awful.key({ defaults.modkey }, "p", function()
 		awful.spawn("rofi-pass")

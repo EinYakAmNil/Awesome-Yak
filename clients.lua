@@ -73,7 +73,7 @@ awful.rules.rules = {
 		properties = { tag = defaults.tagnames["browser"] },
 	},
 	{
-		rule_any = { class = { "DB Browser for SQLite" } },
+		rule_any = { class = { "DB Browser for SQLite", "qBittorrent" } },
 		properties = { tag = defaults.tagnames["download"] },
 	},
 	{
@@ -89,7 +89,7 @@ awful.rules.rules = {
 		properties = { tag = defaults.tagnames["videos"] },
 	},
 	{
-		rule_any = { class = { "krita", "Gimp-2.10", "Blender" } },
+		rule_any = { class = { "krita", "Gimp", "Blender" } },
 		properties = { tag = defaults.tagnames["art"] },
 	},
 	{
@@ -132,6 +132,10 @@ awful.rules.rules = {
 		rule_any = { class = { "riotclientservices.exe", "leagueclient.exe" } },
 		properties = { tag = defaults.tagnames["download"] },
 	},
+	-- {
+	-- 	rule = { class = "mpv", name = "awesome-mpv" },
+	-- 	properties = { hidden = true },
+	-- },
 }
 -- }}}
 
