@@ -71,11 +71,17 @@ local globalkeys = gears.table.join(
 		{ defaults.modkey, "Shift" }, "Return", utils.launch_app,
 		{ description = "launch a desktop application", group = "launcher" }
 	),
+	awful.key({ defaults.modkey }, "b", function()
+		awful.spawn(os.getenv("BROWSER"))
+	end, { description = "open browser", group = "launcher" }),
+	awful.key({ defaults.modkey }, "n", function()
+		awful.spawn(defaults.terminal .. ' -e nvim -c "Nvimboat enable" .nvimboat')
+	end, { description = "open nvimboat", group = "launcher" }),
 	awful.key({ defaults.modkey }, "d", function()
 		awful.spawn("rofi-music-dl")
 	end, { description = "play video in clipboard", group = "launcher" }),
 	awful.key({ defaults.modkey }, "m", function()
-		awful.spawn("wimusic select")
+		awful.spawn('rofi -modes "music:rofi-music,playlist:rofi-playlist" -show music')
 	end, { description = "music player with status bar integration", group = "launcher" }),
 	awful.key({ defaults.modkey }, "p", function()
 		awful.spawn("rofi-pass")
@@ -199,7 +205,7 @@ M.client_keys = gears.table.join(
 	awful.key({ defaults.modkey, "Shift" }, "s", function(c)
 		c.sticky = not c.sticky
 	end, { description = "make client sticky", group = "client" }),
-	awful.key({ defaults.modkey }, "n", function(c)
+	awful.key({ defaults.modkey, "Shift" }, "n", function(c)
 		c.minimized = true
 	end, { description = "minimize", group = "client" }),
 	awful.key({ defaults.modkey, "Control" }, "m", function(c)
