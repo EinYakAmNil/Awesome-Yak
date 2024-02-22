@@ -74,8 +74,11 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "b", function()
 		awful.spawn(os.getenv("BROWSER"))
 	end, { description = "open browser", group = "launcher" }),
+	awful.key({ defaults.modkey }, "f", function()
+		awful.spawn(defaults.dex .. "/usr/share/applications/lf.desktop")
+	end, { description = "open file browser", group = "launcher" }),
 	awful.key({ defaults.modkey }, "n", function()
-		awful.spawn(defaults.terminal .. ' -e nvim -c "Nvimboat enable" .nvimboat')
+		awful.spawn(defaults.dex .. os.getenv("HOME") .. "/.local/share/applications/nvimboat.desktop")
 	end, { description = "open nvimboat", group = "launcher" }),
 	awful.key({ defaults.modkey }, "d", function()
 		awful.spawn("rofi-music-dl")
@@ -180,19 +183,13 @@ for i = 1, 9 do
 end
 
 M.client_keys = gears.table.join(
-	awful.key({ defaults.modkey }, "f", function(c)
+	awful.key({ defaults.modkey, "Shift" }, "f", function(c)
 		c.fullscreen = not c.fullscreen
 		c:raise()
 	end, { description = "toggle fullscreen", group = "client" }),
 	awful.key({ defaults.modkey, "Shift" }, "q", function(c)
 		c:kill()
 	end, { description = "close", group = "client" }),
-	awful.key(
-		{ defaults.modkey, "Shift" },
-		"f",
-		awful.client.floating.toggle,
-		{ description = "toggle floating", group = "client" }
-	),
 	awful.key({ defaults.modkey, "Control" }, "Return", function(c)
 		c:swap(awful.client.getmaster())
 	end, { description = "move to master", group = "client" }),
