@@ -40,7 +40,7 @@ M.mainmenu = awful.menu({
 		{ "awesome",           M.myawesomemenu,                                                             beautiful.awesome_icon },
 		{ "open terminal",     M.terminal,                                                                  "/usr/share/icons/Papirus/22x22/apps/gnome-terminal.svg" },
 		{ "open browser",      os.getenv("BROWSER"),                                                        "/usr/share/icons/Papirus-Dark/symbolic/places/network-workgroup-symbolic.svg" },
-		{ "open file browser", M.dex .. "/usr/share/applications/lf.desktop",                               "/usr/share/icons/Papirus-Dark/symbolic/places/network-workgroup-symbolic.svg" },
+		{ "open file browser", M.dex .. "/usr/share/applications/lf.desktop",                               "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/inode-directory-symbolic.svg" },
 		{ "open RSS reader",   M.dex .. os.getenv("HOME") .. "/.local/share/applications/nvimboat.desktop", "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/application-rss+xml-symbolic.svg" },
 		{ "select music",      "wimusic select",                                                            "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/audio-x-generic-symbolic.svg" },
 	},
