@@ -128,6 +128,13 @@ local globalkeys = gears.table.join(
 		end
 	end, { description = "restore minimized", group = "client" }),
 
+	awful.key({ defaults.modkey }, "Print", function()
+		awful.spawn("flameshot screen")
+	end, { description = "Capture current screen", group = "screenshot" }),
+	awful.key({ defaults.modkey, "Shift" }, "Print", function()
+		awful.spawn("flameshot gui")
+	end, { description = "Manual capture", group = "screenshot" }),
+
 	-- Prompt
 	awful.key({ defaults.modkey, "Shift" }, "r", function()
 		awful.prompt.run({
