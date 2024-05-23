@@ -75,10 +75,10 @@ local globalkeys = gears.table.join(
 		awful.spawn(os.getenv("BROWSER"))
 	end, { description = "open browser", group = "launcher" }),
 	awful.key({ defaults.modkey }, "f", function()
-		awful.spawn(defaults.dex .. "/usr/share/applications/lf.desktop")
+		awful.spawn(defaults.lf)
 	end, { description = "open file browser", group = "launcher" }),
 	awful.key({ defaults.modkey }, "n", function()
-		awful.spawn(defaults.dex .. os.getenv("HOME") .. "/.local/share/applications/nvimboat.desktop")
+		awful.spawn(defaults.nvimboat)
 	end, { description = "open nvimboat", group = "launcher" }),
 	awful.key({ defaults.modkey }, "d", function()
 		awful.spawn("rofi-music-dl")
