@@ -3,15 +3,18 @@ local beautiful = require("beautiful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local menubar = require("menubar")
 
+
 M = {}
 M.modkey = "Mod4"
 
 M.terminal = os.getenv("TERM") or "kitty"
-M.rofi_desktop = "rofi -show drun"
+
+local dex = "dex --term " .. M.terminal .. " "
+
+M.rofi_desktop = "rofi -terminal " .. M.terminal .. " -show drun"
 M.rofi_ssh = "rofi -show ssh"
-M.dex = "dex --term " .. M.terminal .. " "
-M.nvimboat = M.dex .. os.getenv("HOME") .. "/.local/share/applications/nvimboat.desktop"
-M.lf = M.dex .. "/usr/share/applications/lf.desktop"
+M.nvimboat = dex .. os.getenv("HOME") .. "/.local/share/applications/nvimboat.desktop"
+M.lf = dex .. "/usr/share/applications/lf.desktop"
 M.rofi_music = 'rofi -modes "music:rofi-music,playlist:rofi-playlist" -show music'
 
 local editor = os.getenv("EDITOR") or "nvim"

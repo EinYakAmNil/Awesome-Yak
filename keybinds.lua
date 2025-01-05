@@ -43,7 +43,7 @@ local globalkeys = gears.table.join(
 		awful.screen.focus_relative(-1)
 	end, { description = "focus the previous screen", group = "screen" }),
 	awful.key(
-		{ defaults.modkey },
+		{ defaults.modkey, "Shift" },
 		"u",
 		awful.client.urgent.jumpto,
 		{ description = "jump to urgent client", group = "client" }
@@ -95,12 +95,18 @@ local globalkeys = gears.table.join(
 	awful.key({ defaults.modkey }, "s", function()
 		awful.spawn(defaults.rofi_ssh)
 	end, { description = "traceroute to fix routing issues", group = "launcher" }),
+	awful.key({ defaults.modkey }, "u", function()
+		awful.spawn("url-menu")
+	end, { description = "control VPNs via NetworkManager", group = "launcher" }),
 	awful.key({ defaults.modkey, "Shift" }, "v", function()
 		awful.spawn("vpnctl")
 	end, { description = "control VPNs via NetworkManager", group = "launcher" }),
 	awful.key({ defaults.modkey }, "y", function()
 		awful.spawn("ytmpv")
 	end, { description = "play video in clipboard", group = "launcher" }),
+	awful.key({ defaults.modkey }, "z", function()
+		awful.spawn("rofi-zathura")
+	end, { description = "open pdf file", group = "launcher" }),
 	awful.key(
 		{ defaults.modkey, "Control" },
 		"r",
