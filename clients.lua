@@ -81,10 +81,6 @@ awful.rules.rules = {
 		properties = { tag = defaults.tagnames["gameclients"] },
 	},
 	{
-		rule_any = { name = { "Steam" } },
-		properties = { tag = defaults.tagnames["gameclients"] },
-	},
-	{
 		rule_any = { class = { "mpv" } },
 		properties = { tag = defaults.tagnames["videos"] },
 	},
@@ -97,7 +93,7 @@ awful.rules.rules = {
 		properties = { tag = defaults.tagnames["docs"] },
 	},
 	{
-		rule = { class = "Blender", name = "Blender Preferences" },
+		rule = { class = "Blender", name = "Preferences" },
 		properties = { floating = true },
 	},
 	{

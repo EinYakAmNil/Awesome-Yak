@@ -59,7 +59,7 @@ end
 M.get_vol = function()
 	awful.spawn.easy_async("wivolume status", function(stdout)
 		if string.len(stdout) > 2 then
-			vol_display.text = "󰕾 " .. stdout
+			vol_display.text = "󰕾 " .. stdout:gsub("[\r\n]", "")
 		else
 			M.get_vol()
 		end
@@ -232,7 +232,7 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mywibox = awful.wibar({
 		position = "top",
 		height = 30,
-		width = 1900,
+		stretch = true,
 		screen = s,
 	})
 
