@@ -48,6 +48,7 @@ require("layouts")
 require("statusbar")
 require("keybinds")
 require("clients")
+require("widgets")
 
 -- Settings made after everything is loaded
 require("after")

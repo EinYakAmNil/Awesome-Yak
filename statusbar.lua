@@ -227,16 +227,13 @@ awful.screen.connect_for_each_screen(function(s)
 		opacity = 0,
 		screen = s,
 	})
-	s.spacer:setup()
 	-- Create the wibox
 	s.mywibox = awful.wibar({
 		position = "top",
-		height = 30,
 		stretch = true,
 		screen = s,
 	})
 
-	-- Add widgets to the wibox
 	s.mywibox:setup({
 		layout = wibox.layout.align.horizontal,
 		{
@@ -262,6 +259,5 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 	})
 end)
--- }}}
 
 return M
