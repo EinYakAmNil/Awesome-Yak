@@ -6,7 +6,7 @@ local defaults = require("defaults")
 local M = {}
 
 -- Elements on the left
-local mytextclock = wibox.widget.textclock()
+local clock_display = wibox.widget.textclock()
 local music_display = wibox.widget.textbox()
 local vol_display = wibox.widget.textbox()
 
@@ -187,11 +187,11 @@ awful.screen.connect_for_each_screen(function(s)
 	}, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
-	s.mypromptbox = awful.widget.prompt()
+	s.prompt_widget = awful.widget.prompt()
 	-- Create an imagebox widget which will contain an icon indicating which layout we're using.
 	-- We need one layoutbox per screen.
-	s.mylayoutbox = awful.widget.layoutbox(s)
-	s.mylayoutbox:buttons(gears.table.join(
+	s.layout_display = awful.widget.layoutbox(s)
+	s.layout_display:buttons(gears.table.join(
 		awful.button({}, 1, function()
 			awful.layout.inc(1)
 		end),
@@ -206,14 +206,14 @@ awful.screen.connect_for_each_screen(function(s)
 		end)
 	))
 	-- Create a taglist widget
-	s.mytaglist = awful.widget.taglist({
+	s.tag_list = awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
 		buttons = taglist_buttons,
 	})
 
 	-- Create a tasklist widget
-	s.mytasklist = awful.widget.tasklist({
+	s.task_list = awful.widget.tasklist({
 		screen = s,
 		filter = awful.widget.tasklist.filter.currenttags,
 		buttons = tasklist_buttons,
@@ -228,23 +228,23 @@ awful.screen.connect_for_each_screen(function(s)
 		screen = s,
 	})
 	-- Create the wibox
-	s.mywibox = awful.wibar({
+	s.statusbar = awful.wibar({
 		position = "top",
 		stretch = true,
 		screen = s,
 	})
 
-	s.mywibox:setup({
+	s.statusbar:setup({
 		layout = wibox.layout.align.horizontal,
 		{
 			-- Left widgets
 			layout = wibox.layout.fixed.horizontal,
 			defaults.launcher,
-			s.mytaglist,
+			s.tag_list,
 			M.separator,
-			s.mypromptbox,
+			s.prompt_widget,
 		},
-		s.mytasklist, -- Middle widget
+		s.task_list, -- Middle widget
 		{
 			-- Right widgets
 			layout = wibox.layout.fixed.horizontal,
@@ -254,8 +254,8 @@ awful.screen.connect_for_each_screen(function(s)
 			M.musicbox,
 			M.separator,
 			wibox.widget.systray(),
-			mytextclock,
-			s.mylayoutbox,
+			clock_display,
+			s.layout_display,
 		},
 	})
 end)

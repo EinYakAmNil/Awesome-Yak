@@ -2,7 +2,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local menubar = require("menubar")
-
+local gears = require("gears")
 
 M = {}
 M.modkey = "Mod4"
@@ -68,5 +68,9 @@ M.tagnames = {
 	communication = " ",
 	download = " ",
 }
+
+M.margin = 8
+
+M.scripts_path = gears.filesystem.get_xdg_config_home() .. "awesome/scripts/"
 
 return M
