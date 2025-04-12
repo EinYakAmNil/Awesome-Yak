@@ -1,15 +1,9 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
-local naughty = require("naughty")
 local defaults = require("defaults")
 local M = {}
 local bar_pos = screen[screen.count()].statusbar:geometry()
-
-naughty.notify({
-	title = "bar geo",
-	text = gears.debug.dump_return(bar_pos)
-})
 
 local calendar_widget = wibox.widget({
 	{

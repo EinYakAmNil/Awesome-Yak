@@ -1,16 +1,25 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
+local naughty = require("naughty")
 
 local defaults = require("defaults")
 
-local utils = {}
+local M = {}
 
-utils.launch_app = function()
+function M.debug(v)
+	naughty.notify({
+		title = "debug",
+		text = gears.debug.dump_return(v),
+		timeout = 0,
+	})
+end
+
+M.launch_app = function()
 	awful.spawn(defaults.rofi_desktop)
 end
 
-utils.set_wallpaper = function(s)
+M.set_wallpaper = function(s)
 	-- Wallpaper
 	if beautiful.wallpaper then
 		local wallpaper = beautiful.wallpaper
@@ -22,8 +31,8 @@ utils.set_wallpaper = function(s)
 	end
 end
 
-utils.change_wallpaper = function()
+M.change_wallpaper = function()
 	awful.spawn.easy_async("wallpaper")
 end
 
-return utils
+return M
