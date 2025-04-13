@@ -5,38 +5,34 @@ local wibox = require("wibox")
 
 local scripts = require("scripts")
 
-local M = {}
 local idle_text = "no songs playing"
 local music_text_widget = wibox.widget.textbox(idle_text)
 
-function M.toggle_song()
+local function toggle_song()
 	awful.spawn.easy_async(scripts.music .. "toggle", function() end)
 end
 
-function M.next_song()
+local function next_song()
 	awful.spawn.easy_async(scripts.music .. "next", function() end)
 end
 
-function M.prev_song()
+local function prev_song()
 	awful.spawn.easy_async(scripts.music .. "prev", function() end)
 end
 
-function M.songs_notify()
+local function songs_notify()
 	awful.spawn.easy_async(scripts.music .. "notify", function() end)
 end
 
-function M.copy_song()
+local function copy_song()
 	awful.spawn.easy_async(scripts.music .. "copy", function() end)
 end
 
-function M.quit_mpv()
-	awful.spawn.easy_async(scripts.music .. "quit", function()
-		M:pause()
-		M:reset_scrolling()
-	end)
+local function quit_mpv()
+	awful.spawn.easy_async(scripts.music .. "quit", function() end)
 end
 
-M = wibox.widget({
+local M = wibox.widget({
 	widget = wibox.container.scroll.horizontal,
 	max_size = 130,
 	extra_space = 20,
@@ -45,17 +41,41 @@ M = wibox.widget({
 	fps = 60,
 	forced_width = music_text_widget:get_preferred_size(1),
 	buttons = gears.table.join(
-		awful.button({}, 1, M.songs_notify),
-		awful.button({}, 2, M.copy_song),
-		awful.button({}, 3, M.toggle_song),
-		awful.button({}, 4, M.prev_song),
-		awful.button({}, 5, M.next_song)
+		awful.button({}, 1, songs_notify),
+		awful.button({}, 2, copy_song),
+		awful.button({}, 3, toggle_song),
+		awful.button({}, 4, prev_song),
+		awful.button({}, 5, next_song)
 	),
 	{
 		widget = music_text_widget,
 		ellipsize = "none",
 	}
 })
+
+function M.toggle_song()
+	toggle_song()
+end
+
+function M.next_song()
+	next_song()
+end
+
+function M.prev_song()
+	prev_song()
+end
+
+function M.songs_notify()
+	songs_notify()
+end
+
+function M.copy_song()
+	copy_song()
+end
+
+function M.quit_mpv()
+	quit_mpv()
+end
 
 function M.get_song()
 	awful.spawn.easy_async(scripts.music .. "status", function(stdout, stderr, _, exit_code)

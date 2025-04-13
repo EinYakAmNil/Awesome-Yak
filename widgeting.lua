@@ -88,18 +88,12 @@ awful.spawn.easy_async(scripts.disk_use, function(stdout)
 				},
 				x = math.floor(math.random() * 1000),
 				y = math.floor(math.random() * 500),
+				opacity = .6,
 			})
 
 			M.disk_use:connect_signal("property::width", function()
 				M.disk_use.x = bar_pos["width"] - M.disk_use.width - defaults.margin
 				M.disk_use.y = M.calendar.y + M.calendar.height + defaults.margin
-			end)
-			M.disk_use:connect_signal("mouse::enter", function()
-				M.disk_use.opacity = 1
-			end)
-
-			M.disk_use:connect_signal("mouse::leave", function()
-				M.calendar.opacity = .2
 			end)
 		end
 	end
