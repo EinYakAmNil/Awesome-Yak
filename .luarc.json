@@ -1,5 +1,9 @@
 {
-	"diagnostics": {
-		"globals": ["awesome", "client", "root", "screen"]
+	"workspace": {
+		"library": ["/usr/share/awesome/lib/"]
+	},
+	"completion": {
+		"autoRequire": true,
+		"displayContext": 1
 	}
 }
