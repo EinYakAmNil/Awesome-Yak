@@ -15,6 +15,21 @@ function M.debug(v)
 	})
 end
 
+function M.scandir(dir)
+	local i, files = 0, {}
+	local pfile = io.popen('ls "' .. dir .. '"')
+	if pfile == nil then
+		print("failed to list directory" .. dir)
+		return nil
+	end
+	for filename in pfile:lines() do
+		i = i + 1
+		files[i] = filename
+	end
+	pfile:close()
+	return files
+end
+
 M.launch_app = function()
 	awful.spawn(defaults.rofi_desktop)
 end

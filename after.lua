@@ -11,5 +11,5 @@ end)
 screen.connect_signal("property::geometry", utils.set_wallpaper)
 
 beautiful.useless_gap = 5
-bar.musicbox:reset_scrolling()
-bar.musicbox:pause()
+-- bar.musicbox:reset_scrolling()
+-- bar.musicbox:pause()

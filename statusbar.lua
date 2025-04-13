@@ -3,11 +3,13 @@ local gears = require("gears")
 local wibox = require("wibox")
 local defaults = require("defaults")
 
+local scripts = require("scripts")
+local widgets = require("widgets")
+
 local M = {}
 
 -- Elements on the left
 local clock_display = wibox.widget.textclock()
-local music_display = wibox.widget.textbox()
 local vol_display = wibox.widget.textbox()
 
 M.separator = wibox.widget.separator({
@@ -15,49 +17,8 @@ M.separator = wibox.widget.separator({
 	forced_width = 20,
 })
 
-M.get_song = function()
-	awful.spawn.easy_async("wimusic status", function(stdout)
-		if string.len(stdout) > 1 then
-			music_display.text = "𝅘𝅥𝅮♪  " .. stdout
-			M.musicbox:continue()
-		else
-			music_display.text = "No songs playing "
-			M.musicbox:pause()
-			M.musicbox:reset_scrolling()
-		end
-		music_display.forced_width = music_display:get_preferred_size(1) + 20
-	end)
-end
-
-M.toggle_song = function()
-	awful.spawn.easy_async("wimusic toggle", function() end)
-end
-
-M.next_song = function()
-	awful.spawn.easy_async("wimusic next", function() end)
-end
-
-M.prev_song = function()
-	awful.spawn.easy_async("wimusic prev", function() end)
-end
-
-M.songs_notify = function()
-	awful.spawn.easy_async("wimusic notify", function() end)
-end
-
-M.copy_song = function()
-	awful.spawn.easy_async("wimusic copy", function() end)
-end
-
-M.quit_mpv = function()
-	awful.spawn.easy_async("wimusic quit", function()
-		M.musicbox:pause()
-		M.musicbox:reset_scrolling()
-	end)
-end
-
 M.get_vol = function()
-	awful.spawn.easy_async("wivolume status", function(stdout)
+	awful.spawn.easy_async(scripts.volume .. "status", function(stdout)
 		if string.len(stdout) > 2 then
 			vol_display.text = "󰕾 " .. stdout:gsub("[\r\n]", "")
 		else
@@ -67,56 +28,36 @@ M.get_vol = function()
 end
 
 M.volmixer = function()
-	awful.spawn.easy_async("wivolume mixer", function() end)
+	awful.spawn.easy_async(scripts.volume .. "mixer", function() end)
 end
 
 M.volpavu = function()
-	awful.spawn.easy_async("wivolume pavu", function() end)
+	awful.spawn.easy_async(scripts.volume .. "pavu", function() end)
 end
 
 M.voldec = function()
-	awful.spawn.easy_async("wivolume dec", function()
-		awful.spawn.easy_async("wivolume status", function(stdout)
+	awful.spawn.easy_async(scripts.volume .. "dec", function()
+		awful.spawn.easy_async(scripts.volume .. "status", function(stdout)
 			vol_display.text = "󰕾 " .. stdout
 		end)
 	end)
 end
 
 M.volinc = function()
-	awful.spawn.easy_async("wivolume inc", function()
-		awful.spawn.easy_async("wivolume status", function(stdout)
+	awful.spawn.easy_async(scripts.volume .. "inc", function()
+		awful.spawn.easy_async(scripts.volume .. "status", function(stdout)
 			vol_display.text = "󰕾 " .. stdout
 		end)
 	end)
 end
 
 M.default_vol = function()
-	awful.spawn.easy_async("wivolume default", function()
-		awful.spawn.easy_async("wivolume status", function(stdout)
+	awful.spawn.easy_async(scripts.volume .. "default", function()
+		awful.spawn.easy_async(scripts.volume .. "status", function(stdout)
 			vol_display.text = "󰕾 " .. stdout
 		end)
 	end)
 end
-
-M.musicbox = wibox.widget({
-	layout = wibox.container.scroll.horizontal,
-	max_size = 130,
-	step_function = wibox.container.scroll.step_functions.linear_increase,
-	speed = 50,
-	fps = 60,
-	buttons = gears.table.join(
-		awful.button({}, 1, M.songs_notify),
-		awful.button({}, 2, M.copy_song),
-		awful.button({}, 3, M.toggle_song),
-		awful.button({}, 4, M.prev_song),
-		awful.button({}, 5, M.next_song)
-	),
-	{
-		widget = music_display,
-		text = M.get_song(),
-		ellipsize = "none",
-	},
-})
 
 M.volbox = wibox.widget({
 	widget = vol_display,
@@ -233,6 +174,36 @@ awful.screen.connect_for_each_screen(function(s)
 		stretch = true,
 		screen = s,
 	})
+	-- s.statusbar = awful.popup({
+	-- 	widget = wibox.widget {
+	-- 		layout = wibox.layout.align.horizontal,
+	-- 		{
+	-- 			-- Left widgets
+	-- 			layout = wibox.layout.fixed.horizontal,
+	-- 			defaults.launcher,
+	-- 			s.tag_list,
+	-- 			M.separator,
+	-- 			s.prompt_widget,
+	-- 		},
+	-- 		s.task_list, -- Middle widget
+	-- 		{
+	-- 			-- Right widgets
+	-- 			layout = wibox.layout.fixed.horizontal,
+	-- 			M.separator,
+	-- 			M.volbox,
+	-- 			M.separator,
+	-- 			M.musicbox,
+	-- 			M.separator,
+	-- 			wibox.widget.systray(),
+	-- 			clock_display,
+	-- 			s.layout_display,
+	-- 		},
+	-- 	},
+	-- 	minimum_width = s.geometry.width,
+	-- 	maximum_height = 24,
+	-- 	y = 8,
+	-- 	screen = s,
+	-- })
 
 	s.statusbar:setup({
 		layout = wibox.layout.align.horizontal,
@@ -251,7 +222,7 @@ awful.screen.connect_for_each_screen(function(s)
 			M.separator,
 			M.volbox,
 			M.separator,
-			M.musicbox,
+			widgets.music,
 			M.separator,
 			wibox.widget.systray(),
 			clock_display,

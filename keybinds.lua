@@ -3,6 +3,7 @@ local gears = require("gears")
 local help = require("help")
 
 local bar = require("statusbar")
+local widgets = require("widgets")
 local defaults = require("defaults")
 local utils = require("utils")
 
@@ -50,13 +51,20 @@ local globalkeys = gears.table.join(
 	),
 
 	-- media keys
-	awful.key({}, "XF86AudioPlay", bar.toggle_song, { description = "Toggle music player", group = "media keys" }),
-	awful.key({}, "XF86AudioStop", bar.quit_mpv, { description = "Quit music player", group = "media keys" }),
-	awful.key({}, "XF86AudioNext", bar.next_song, { description = "Play next song in playlist", group = "media keys" }),
 	awful.key(
-		{},
-		"XF86AudioPrev",
-		bar.prev_song,
+		{}, "XF86AudioPlay", widgets.music.toggle_song,
+		{ description = "Toggle music player", group = "media keys" }
+	),
+	awful.key(
+		{}, "XF86AudioStop", widgets.music.quit_mpv,
+		{ description = "Quit music player", group = "media keys" }
+	),
+	awful.key(
+		{}, "XF86AudioNext", widgets.music.next_song,
+		{ description = "Play next song in playlist", group = "media keys" }
+	),
+	awful.key(
+		{}, "XF86AudioPrev", widgets.music.prev_song,
 		{ description = "Play previous song in playlist", group = "media keys" }
 	),
 	-- volume control

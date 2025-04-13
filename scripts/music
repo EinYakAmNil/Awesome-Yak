@@ -1,0 +1,60 @@
+#!/bin/sh
+
+case $1 in
+"update")
+	awesome-client <~/.config/awesome/scripts/update-music-widget.lua
+	;;
+"status")
+	echo '{"command": ["get_property_string", "filename"]}' |
+		socat - $MPVSOCKET |
+		jq '.data' |
+		sed 's/^\"\(.*\)\..*\"$/\1/'
+	;;
+"notify")
+	current_id=$(echo '{"command": ["get_property", "playlist-pos"]}' |
+		socat - $MPVSOCKET |
+		jq -M '.data')
+
+	if [ ${#current_id} -gt 0 ]; then
+		next='Next in line:\n'
+
+		for i in {1..3}; do
+			let current_id++
+			fn=$(echo '{"command": ["get_property", "playlist/'"$current_id"'/filename"]}' |
+				socat - $MPVSOCKET |
+				jq -M '.data' |
+				sed 's/\".*\/\(.*\)\..*\"$/\1/g')
+			next=$next"$fn"'\n'
+		done
+
+		echo -e $next |
+			sed '/^$/d' |
+			xargs -0 notify-send -i /usr/share/icons/Papirus-Dark/symbolic/mimetypes/audio-x-generic-symbolic.svg
+	fi
+	;;
+"toggle")
+	[[ "$(file -b $MPVSOCKET)" == "socket" ]] || mpv --input-ipc-server=$MPVSOCKET
+	echo '{"command": ["cycle", "pause"]}' |
+		socat - $MPVSOCKET && exit 0 ||
+		mpv --no-video --shuffle=yes --input-ipc-server=$MPVSOCKET $HOME/Musik/all/* && exit 0
+	exit 1
+	;;
+"next")
+	echo '{"command": ["playlist-next"]}' | socat - $MPVSOCKET && exit 0
+	exit 1
+	;;
+"prev")
+	echo '{"command": ["playlist-prev"]}' | socat - $MPVSOCKET && exit 0
+	exit 1
+	;;
+"copy")
+	echo '{"command": ["get_property_string", "filename"]}' |
+		socat - $MPVSOCKET |
+		jq '.data' |
+		sed 's/^\"\(.*\)\..*\"$/\1/' |
+		xclip -rmlastnl -selection primary
+	;;
+"quit")
+	echo '{"command": ["quit"]}' | socat - $MPVSOCKET
+	;;
+esac

@@ -2,6 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local gears = require("gears")
 local defaults = require("defaults")
+local scripts = require("scripts")
 local M = {}
 local bar_pos = screen[screen.count()].statusbar:geometry()
 
@@ -33,10 +34,10 @@ M.calendar = awful.popup({
 	widget = calendar_widget,
 	x = bar_pos["width"],
 	y = bar_pos["y"] + bar_pos["height"] + defaults.margin,
-	opacity = .8,
+	opacity = .6,
 })
 
-awful.spawn.easy_async(defaults.scripts_path .. "disk-use.sh", function(stdout)
+awful.spawn.easy_async(scripts.disk_use, function(stdout)
 	local partitions = {}
 	local lines = gears.string.split(stdout, "\n")
 	for i, l in ipairs(lines) do
@@ -98,7 +99,7 @@ awful.spawn.easy_async(defaults.scripts_path .. "disk-use.sh", function(stdout)
 			end)
 
 			M.disk_use:connect_signal("mouse::leave", function()
-				M.calendar.opacity = .8
+				M.calendar.opacity = .2
 			end)
 		end
 	end
@@ -106,16 +107,15 @@ end)
 
 -- position can only be set after the popup has width
 M.calendar:connect_signal("property::width", function()
-	-- M.calendar.x = M.calendar.x - M.calendar.width - defaults.margin
 	M.calendar.x = bar_pos.x + bar_pos.width - M.calendar.width - defaults.margin
 end)
 
 M.calendar:connect_signal("mouse::enter", function()
-	M.calendar.opacity = 1
+	M.calendar.opacity = .8
 end)
 
 M.calendar:connect_signal("mouse::leave", function()
-	M.calendar.opacity = .8
+	M.calendar.opacity = .6
 end)
 
 return M

@@ -1,0 +1,22 @@
+#!/bin/sh
+
+cardid=$(grep "\[Headset" /proc/asound/cards | cut -f 2 -d " ")
+current=$(amixer -c $cardid sget 'PCM' | tail -n 1 | awk '{ print $5 }' | sed 's/\[\|\]\|\%//g')
+change=5
+default="20%"
+
+case $1 in
+	"status")
+		echo "$current%"
+		;;
+	"inc") amixer -c $cardid sset PCM $[ "$current" + "$change" ]% > /dev/null
+		;;
+	"dec") amixer -c $cardid sset PCM $[ "$current" - "$change" ]% > /dev/null
+		;;
+	"default") amixer -c $cardid sset PCM $default > /dev/null
+		;;
+	"pavu") pavucontrol
+		;;
+	"mixer") $TERM -e "alsamixer"
+		;;
+esac
