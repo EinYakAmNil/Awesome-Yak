@@ -110,6 +110,7 @@ awful.rules.rules = {
 				"league of legends.exe",
 				"ShogunShowdownPrologue.x86_64",
 				"medieval2.exe",
+				"aomx.exe",
 				"assassinscreed_dx10.exe",
 				"retroarch",
 			},
@@ -122,7 +123,7 @@ awful.rules.rules = {
 	},
 	{
 		rule_any = { class = { "Signal", "thunderbird" } },
-		properties = { screen = 2, tag = defaults.tagnames["communication"] },
+		properties = { screen = screen.count(), tag = defaults.tagnames["communication"] },
 	},
 	{
 		rule_any = { class = { "riotclientservices.exe", "leagueclient.exe" } },

@@ -45,10 +45,10 @@ M.mainmenu = awful.menu({
 	items = {
 		{ "awesome",           M.myawesomemenu,      beautiful.awesome_icon },
 		{ "open terminal",     M.terminal,           "/usr/share/icons/Papirus/22x22/apps/gnome-terminal.svg" },
-		{ "open browser",      os.getenv("BROWSER"), "/usr/share/icons/Papirus-Dark/symbolic/places/network-workgroup-symbolic.svg" },
-		{ "open file browser", M.lf,                 "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/inode-directory-symbolic.svg" },
-		{ "open RSS reader",   M.nvimboat,           "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/application-rss+xml-symbolic.svg" },
-		{ "select music",      M.rofi_music,         "/usr/share/icons/Papirus-Dark/symbolic/mimetypes/audio-x-generic-symbolic.svg" },
+		{ "open browser",      os.getenv("BROWSER"), "/usr/share/icons/Arc/places/symbolic/network-workgroup-symbolic.svg" },
+		{ "open file browser", M.lf,                 "/usr/share/icons/Arc/mimetypes/symbolic/inode-directory-symbolic.svg" },
+		{ "open RSS reader",   M.nvimboat,           "/usr/share/icons/Arc/mimetypes/symbolic/application-rss+xml-symbolic.svg" },
+		{ "select music",      M.rofi_music,         "/usr/share/icons/Arc/mimetypes/symbolic/audio-x-generic-symbolic.svg" },
 	},
 })
 
