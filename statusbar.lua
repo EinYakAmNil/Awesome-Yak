@@ -159,52 +159,12 @@ awful.screen.connect_for_each_screen(function(s)
 		filter = awful.widget.tasklist.filter.currenttags,
 		buttons = tasklist_buttons,
 	})
-
-	-- hack offset status bar
-	s.spacer = awful.wibar({
-		position = "top",
-		height = 5,
-		width = 1,
-		opacity = 0,
-		screen = s,
-	})
 	-- Create the wibox
 	s.statusbar = awful.wibar({
 		position = "top",
 		stretch = true,
 		screen = s,
 	})
-	-- s.statusbar = awful.popup({
-	-- 	widget = wibox.widget {
-	-- 		layout = wibox.layout.align.horizontal,
-	-- 		{
-	-- 			-- Left widgets
-	-- 			layout = wibox.layout.fixed.horizontal,
-	-- 			defaults.launcher,
-	-- 			s.tag_list,
-	-- 			M.separator,
-	-- 			s.prompt_widget,
-	-- 		},
-	-- 		s.task_list, -- Middle widget
-	-- 		{
-	-- 			-- Right widgets
-	-- 			layout = wibox.layout.fixed.horizontal,
-	-- 			M.separator,
-	-- 			M.volbox,
-	-- 			M.separator,
-	-- 			M.musicbox,
-	-- 			M.separator,
-	-- 			wibox.widget.systray(),
-	-- 			clock_display,
-	-- 			s.layout_display,
-	-- 		},
-	-- 	},
-	-- 	minimum_width = s.geometry.width,
-	-- 	maximum_height = 24,
-	-- 	y = 8,
-	-- 	screen = s,
-	-- })
-
 	s.statusbar:setup({
 		layout = wibox.layout.align.horizontal,
 		{
@@ -229,6 +189,7 @@ awful.screen.connect_for_each_screen(function(s)
 			s.layout_display,
 		},
 	})
+	s.statusbar.y = 5
 end)
 
 return M
