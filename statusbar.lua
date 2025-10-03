@@ -1,7 +1,11 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
 local defaults = require("defaults")
+
+beautiful.bg_systray = "#150833"
+beautiful.systray_icon_spacing = 5
 
 local scripts = require("scripts")
 local widgets = require("widgets")
@@ -9,20 +13,20 @@ local widgets = require("widgets")
 local M = {}
 
 -- Elements on the left
-local clock_display = wibox.widget.textclock()
+local clock_display = wibox.widget {
+	widget = wibox.container.background,
+	bg = "#150833",
+	fg = "#8B9034",
+	{
+		widget = wibox.widget.textclock,
+	}
+}
 local vol_display = wibox.widget.textbox()
-
-M.separator = wibox.widget.separator({
-	thickness = 5,
-	forced_width = 20,
-})
 
 M.get_vol = function()
 	awful.spawn.easy_async(scripts.volume .. "status", function(stdout)
 		if string.len(stdout) > 2 then
 			vol_display.text = "󰕾 " .. stdout:gsub("[\r\n]", "")
-		else
-			M.get_vol()
 		end
 	end)
 end
@@ -60,15 +64,22 @@ M.default_vol = function()
 end
 
 M.volbox = wibox.widget({
-	widget = vol_display,
-	text = M.get_vol(),
-	buttons = gears.table.join(
-		awful.button({}, 1, M.volmixer),
-		awful.button({}, 2, M.default_vol),
-		awful.button({}, 3, M.volpavu),
-		awful.button({}, 4, M.volinc),
-		awful.button({}, 5, M.voldec)
-	),
+	widget = wibox.container.background,
+	bg = "#B0176E",
+	fg = "#DCDC1D",
+	{
+		widget = vol_display,
+		align = "center",
+		forced_width = 50,
+		text = M.get_vol(),
+		buttons = gears.table.join(
+			awful.button({}, 1, M.volmixer),
+			awful.button({}, 2, M.default_vol),
+			awful.button({}, 3, M.volpavu),
+			awful.button({}, 4, M.volinc),
+			awful.button({}, 5, M.voldec)
+		),
+	}
 })
 
 local tasklist_buttons = gears.table.join(
@@ -172,19 +183,20 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.fixed.horizontal,
 			defaults.launcher,
 			s.tag_list,
-			M.separator,
 			s.prompt_widget,
 		},
 		s.task_list, -- Middle widget
 		{
 			-- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			M.separator,
 			M.volbox,
-			M.separator,
 			widgets.music,
-			M.separator,
-			wibox.widget.systray(),
+			wibox.widget({
+				widget = wibox.container.margin,
+				{
+					widget = wibox.widget.systray,
+				}
+			}),
 			clock_display,
 			s.layout_display,
 		},
